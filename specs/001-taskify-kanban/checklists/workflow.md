@@ -11,7 +11,7 @@
 ## Requirement Completeness
 
 - [x] CHK001 - Are the five predefined users, their roles, and their distinct identities specified with enough precision to avoid ambiguity? [Completeness, Spec §FR-001]
-- [ ] CHK002 - Are the required project and task creation flows sufficiently documented for all active predefined users, including the initial sample data setup? [Completeness, Spec §FR-003, §FR-004, §FR-005]
+- [x] CHK002 - Are the required project and task creation flows sufficiently documented for all active predefined users, including the initial sample data setup? [Completeness, Spec §FR-003, §FR-004, §FR-005]
 - [x] CHK003 - Are the required project-board, task movement, assignment, and commenting capabilities fully represented across the core user journeys? [Completeness, Spec §FR-005, §FR-008, §FR-010, §FR-011A]
 - [x] CHK004 - Are the missing requirements for empty-state behaviors, invalid inputs, and no-data states explicitly documented for project boards and task details? [Gap, Edge Case, Spec §Edge Cases]
 
@@ -49,7 +49,7 @@
 ## Non-Functional Requirements
 
 - [x] CHK023 - Are the no-login and no-credential requirements clearly framed as a phase-specific product constraint rather than a security or access-control model? [Non-Functional, Spec §FR-014, §Assumptions]
-- [ ] CHK024 - Are security-related assumptions about trusted internal identities, data integrity, and no-login access documented enough to support future compliance or authorization requirements? [Non-Functional, Security, Spec §Assumptions, §Constitution]
+- [x] CHK024 - Are security-related assumptions about trusted internal identities, data integrity, and no-login access documented enough to support future compliance or authorization requirements? [Non-Functional, Security, Spec §Assumptions, §Constitution]
 
 ## Dependencies & Assumptions
 
