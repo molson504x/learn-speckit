@@ -8,6 +8,14 @@
 
 **Input**: User description: "Develop Taskify, a team productivity platform where predefined users create projects, assign tasks, comment, and move tasks across Kanban columns (To Do, In Progress, In Review, Done). Five users (one product manager, four engineers), three sample projects, no login for this first phase."
 
+## Clarifications
+
+### Session 2026-08-23
+
+- Q: Which team members should be allowed to move a task between columns in the board workflow? → A: Any active predefined user can move any task between columns.
+- Q: Which team members are allowed to add comments to a task card? → A: Any active predefined user can comment on any task.
+- Q: Who is allowed to assign a task to a predefined user on the board? → A: Any active predefined user can assign a task to any predefined user.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Track Work on a Project Board (Priority: P1)
@@ -75,10 +83,11 @@ As a predefined team member, I want to add and read comments on a task so that d
 - **FR-005**: The platform MUST allow an active team member to create a task within a project using a non-empty title, an optional description, and an optional assignment to one predefined user.
 - **FR-006**: The platform MUST place newly created tasks in the To Do column.
 - **FR-007**: The platform MUST display every project task in exactly one of these workflow columns: To Do, In Progress, In Review, or Done.
-- **FR-008**: The platform MUST allow an active team member to move a task between any of the four workflow columns.
+- **FR-008**: The platform MUST allow any active predefined team member to move a task between any of the four workflow columns.
 - **FR-009**: The platform MUST retain a task's title, description, assignment, comments, and project association when its workflow column changes.
-- **FR-010**: The platform MUST allow an active team member to add a non-empty text comment to a task under their selected predefined identity.
+- **FR-010**: The platform MUST allow any active predefined team member to add a non-empty text comment to any task under their selected predefined identity.
 - **FR-011**: The platform MUST display each task comment with its author and creation time in chronological order.
+- **FR-011A**: The platform MUST allow any active predefined team member to assign any existing task to any one predefined user, including changing a task's assignee during its lifecycle.
 - **FR-012**: The platform MUST reject project names, task titles, and comments that are empty or contain only whitespace, without creating partial records.
 - **FR-013**: The platform MUST prevent assignment to identities outside the five predefined users.
 - **FR-014**: The first phase MUST not require account registration, credential entry, or login to access project and task workflows.
