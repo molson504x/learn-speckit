@@ -90,9 +90,9 @@
 
 ## Phase 3: User Story 1 - Track Work on a Project Board (Priority: P1) 🎯 MVP
 
-**Goal**: Display a project's board with tasks in exactly four Kanban columns (To Do, In Progress, In Review, Done), and allow any predefined user to move tasks between columns while preserving all task details (title, assignee, comments).
+**Goal**: Display a project's board with tasks in exactly four Kanban columns (ToDo, InProgress, InReview, Done), and allow any predefined user to move tasks between columns while preserving all task details (title, assignee, comments).
 
-**Independent Test**: Open a sample project, move a task from To Do through each subsequent column, and verify the task appears in its new column with its details intact; repeat with each of the five predefined users.
+**Independent Test**: Open a sample project, move a task from ToDo through each subsequent column, and verify the task appears in its new column with its details intact; repeat with each of the five predefined users.
 
 ### Contract Tests for User Story 1 ⚠️
 
@@ -100,21 +100,21 @@
 - [ ] T031 [P] [US1] Write failing contract test for `GET /api/tasks?projectId={id}` in `tests/Taskify.TasksApi.Tests/TasksApiTests.cs` (verify tasks array shape with comments sorted by createdAtUtc)
 - [ ] T032 [P] [US1] Write failing contract test for `PATCH /api/tasks/{id}/column` in `tests/Taskify.TasksApi.Tests/TasksApiTests.cs` (verify task moves to new column, other fields unchanged)
 - [ ] T033 [P] [US1] Write failing integration test for task move propagation via SignalR in `tests/Taskify.AppHost.Tests/BoardRealTimeTests.cs` (verify TaskMoved event broadcasts to all connected clients)
-- [ ] T034 [P] [US1] Write failing bUnit component test for Kanban board rendering in `tests/Taskify.Web.Tests/KanbanBoardTests.cs` (verify 4 columns render, tasks appear in correct columns)
+- [ ] T034 [P] [US1] Write failing bUnit component test for Kanban board rendering in `tests/Taskify.Web.Tests/KanbanBoardTests.cs` (verify 4 columns render, tasks appear in correct columns; include edge case: empty project returns no tasks but all 4 columns still render, no load failure)
 - [ ] T035 [P] [US1] Write failing bUnit component test for task drag-and-drop behavior in `tests/Taskify.Web.Tests/DragDropTests.cs` (verify SortableJS interop calls correct API endpoint)
 
 ### Implementation for User Story 1
 
 #### Projects API - Seed Sample Projects
 
-- [ ] T036 Create Projects API seeding to generate exactly 3 sample projects on first run in `src/Taskify.ProjectsApi/Data/ProjectsSeeder.cs` (seed with at least one task in each column across all projects, at least one task with a comment)
+- [ ] T036 Create Projects API seeding to generate exactly 3 sample projects on first run in `src/Taskify.ProjectsApi/Data/ProjectsSeeder.cs` (tasks seeded separately by T040). Sample project names should be distinct and representative (e.g., "Q4 Roadmap", "Bug Triage", "Research Sprint") to aid testing and demos. Reference: see `specs/001-taskify-kanban/design-guide.md` for naming guidance.
 - [ ] T037 [P] [US1] Implement `GET /api/projects` endpoint in `src/Taskify.ProjectsApi/Endpoints/ProjectsEndpoints.cs` (returns array of all projects)
 - [ ] T038 [P] [US1] Implement `GET /api/projects/{id}` endpoint in `src/Taskify.ProjectsApi/Endpoints/ProjectsEndpoints.cs` (returns single project or 404)
 
 #### Tasks API - Retrieve & Move Tasks
 
 - [ ] T039 [P] [US1] Implement `GET /api/tasks?projectId={projectId}` endpoint in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs` (returns all tasks with comments for a project, sorted by column and createdAtUtc)
-- [ ] T040 [US1] Seed Tasks API with sample tasks distributed across 4 columns in `src/Taskify.TasksApi/Data/TasksSeeder.cs` (depends on T036: must reference same projects)
+- [ ] T040 [US1] Seed Tasks API with sample tasks distributed across 4 columns (ToDo, InProgress, InReview, Done) in `src/Taskify.TasksApi/Data/TasksSeeder.cs` (depends on T036: must reference same projects). Ensure sample data validation: across all 3 projects collectively, at least 1 task in each column and at least 1 task with a comment. See `scripts/usability-test-script.md` for test data requirements.
 - [ ] T041 [US1] Implement task-move validation: verify `PATCH /api/tasks/{id}/column` accepts only valid column values and validates `actingUserId` in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs`
 - [ ] T042 [US1] Implement `PATCH /api/tasks/{id}/column` endpoint to move task and preserve all other fields (title, description, assignee, comments, projectId) in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs`
 - [ ] T043 [US1] Emit TaskMoved event to Notifications API after successful column change in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs` (fire-and-forget; log failures but do not block the response)
@@ -204,7 +204,7 @@
 - A user can create a new project with a unique non-empty name
 - A user can create a task within a project with a non-empty title
 - A user can assign a task to any of the 5 predefined users
-- Newly created tasks appear in To Do column
+- Newly created tasks appear in ToDo column
 - New projects and tasks broadcast via SignalR for real-time updates on all connected clients
 - All validation rejects invalid input without partial writes
 - Field-level errors preserve other entered form values
@@ -270,9 +270,9 @@
 
 ### Cross-Service Integration & Testing
 
-- [ ] T100 [P] Run full Aspire.Hosting.Testing integration suite in `tests/Taskify.AppHost.Tests/` covering complete flows (create project → create task → move → comment → verify real-time propagation)
+- [ ] T100 [P] Run full Aspire.Hosting.Testing integration suite in `tests/Taskify.AppHost.Tests/` covering complete flows (create project → create task → move → comment → verify real-time propagation); include failure scenario: verify failed SignalR broadcasts do not block or rollback originating API mutations
 - [ ] T101 [P] Verify AppHost boots all 4 services correctly with service discovery and health checks in `tests/Taskify.AppHost.Tests/`
-- [ ] T102 [P] Test concurrent task moves from multiple simulated clients and verify optimistic updates with SignalR synchronization in `tests/Taskify.AppHost.Tests/ConcurrencyTests.cs`
+- [ ] T102 [P] Test concurrent task moves from multiple simulated clients **on different tasks** and verify optimistic updates with SignalR synchronization in `tests/Taskify.AppHost.Tests/ConcurrencyTests.cs` (note: concurrent updates to the same task are out of scope per spec clarification)
 - [ ] T103 Run full xUnit test suite for ProjectsApi, TasksApi, NotificationsApi; ensure all contract and validation tests pass
 
 ### Frontend Refinement
@@ -280,7 +280,7 @@
 - [ ] T104 [P] Implement loading states and spinners during API calls and SignalR reconnects in all Blazor components (`src/Taskify.Web/Components/`)
 - [ ] T105 [P] Add proper error handling and user-friendly error messages for network failures and API errors in `src/Taskify.Web/Services/`
 - [ ] T106 [P] Implement SignalR reconnection logic with exponential backoff in `src/Taskify.Web/Services/`
-- [ ] T107 [P] Add CSS styling for Kanban board, task cards, forms, and modals in `src/Taskify.Web/wwwroot/css/` (consistent theme, responsive layout)
+- [ ] T107 [P] Add CSS styling for Kanban board, task cards, forms, and modals in `src/Taskify.Web/wwwroot/css/` with consistent theme and responsive layout. Reference: see `specs/001-taskify-kanban/design-guide.md` for color palette, component specifications, typography, and responsive breakpoints. Ensure all text meets minimum 4.5:1 contrast ratio (WCAG 2.1 Level AA).
 - [ ] T108 Refine drag-and-drop visual feedback: highlight drop zones, show placeholder during drag, handle invalid drops in `src/Taskify.Web/Components/KanbanBoard.razor`
 - [ ] T109 Implement task card preview/detail modal or side panel in `src/Taskify.Web/Components/` (appears on click without full page navigation)
 
@@ -304,12 +304,12 @@
 - [ ] T119 [P] Verify keyboard accessibility: tab through all forms, activate buttons with Enter/Space, dismiss modals with Escape in `src/Taskify.Web/Components/`
 - [ ] T120 [P] Test drag-and-drop in Chromium, Firefox, and Safari; verify visual feedback works on touch devices
 - [ ] T121 [P] Add ARIA labels and roles to all form controls, buttons, and interactive elements in `src/Taskify.Web/Components/`
-- [ ] T122 [P] Run Lighthouse accessibility audit and fix any major issues
+- [ ] T122 [P] Run Lighthouse accessibility audit and fix any major issues. Target: **WCAG 2.1 Level AA** compliance (Lighthouse score ≥90). No critical or high-severity accessibility issues permitted. Reference: see `specs/001-taskify-kanban/design-guide.md` for accessibility standards and testing checklist.
 
 ### Sample Data & Quickstart Validation
 
-- [ ] T123 Verify quickstart.md validation steps work end-to-end: run AppHost, open web frontend, perform all three user story scenarios within time limits (30s board load, 3m create+assign+move, 1m comment+find)
-- [ ] T124 [P] Ensure sample project data includes at least one task in each of the 4 columns and at least one task with a comment across all 3 projects (per FR-003 and Assumptions)
+- [ ] T123 Verify quickstart.md validation steps work end-to-end: run AppHost, open web frontend, perform all three user story scenarios within time limits (30s board load, 3m create+assign+move, 1m comment+find). Reference detailed test scenarios in `scripts/usability-test-script.md`; test with at least 2 of the 5 predefined users.
+- [ ] T124 [P] Validate seeding: Assert that across all 3 projects, at least 1 task exists in each KanbanColumn (ToDo, InProgress, InReview, Done) and at least 1 task has a comment, verified BEFORE app first run via seed validation script or initial database assertions in `src/Taskify.ProjectsApi/Data/ProjectsSeeder.cs` and `src/Taskify.TasksApi/Data/TasksSeeder.cs`. Reference: `scripts/usability-test-script.md` section "Sample Data Validation (Must Exist)".
 - [ ] T125 [P] Test with all 5 predefined users: verify each can log in as any identity without session conflict
 
 ### Final Integration Checkpoint

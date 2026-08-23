@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "Develop Taskify, a team productivity platform where predefined users create projects, assign tasks, comment, and move tasks across Kanban columns (To Do, In Progress, In Review, Done). Five users (one product manager, four engineers), three sample projects, no login for this first phase."
+**Input**: User description: "Develop Taskify, a team productivity platform where predefined users create projects, assign tasks, comment, and move tasks across Kanban columns (ToDo, InProgress, InReview, Done). Five users (one product manager, four engineers), three sample projects, no login for this first phase."
 
 ## Clarifications
 
@@ -34,11 +34,11 @@ As a predefined team member, I want to view a project's board and move its tasks
 
 **Why this priority**: A visible and current workflow is the core value of the platform; without it, the team cannot coordinate task progress.
 
-**Independent Test**: Open a sample project, move a task from To Do through each subsequent column, and verify the task appears in its new column with its details intact.
+**Independent Test**: Open a sample project, move a task from ToDo through each subsequent column, and verify the task appears in its new column with its details intact.
 
 **Acceptance Scenarios**:
 
-1. **Given** a sample project contains tasks, **When** a team member opens its board, **Then** tasks are shown in exactly these columns: To Do, In Progress, In Review, and Done.
+1. **Given** a sample project contains tasks, **When** a team member opens its board, **Then** tasks are shown in exactly these columns: ToDo, InProgress, InReview, and Done.
 2. **Given** a task is in any board column, **When** a team member moves it to another allowed column, **Then** the task is removed from its former column and displayed in the chosen column.
 3. **Given** a team member moves a task, **When** they return to the board, **Then** the task's title, assignee, and comments remain associated with the task.
 
@@ -50,12 +50,12 @@ As the product manager or an engineer, I want to create a project and assign its
 
 **Why this priority**: Projects, tasks, and clear ownership turn the board into an actionable plan rather than a static status display.
 
-**Independent Test**: Create a project, add a task with a title and description, assign it to one of the five predefined users, and verify it begins in To Do with the selected assignee.
+**Independent Test**: Create a project, add a task with a title and description, assign it to one of the five predefined users, and verify it begins in ToDo with the selected assignee.
 
 **Acceptance Scenarios**:
 
 1. **Given** a team member is viewing the project list, **When** they create a project with a non-empty name, **Then** the new project is available to open as its own board.
-2. **Given** a project board is open, **When** a team member creates a task with a title and selects a predefined user, **Then** the task is placed in To Do and shows the selected assignee.
+2. **Given** a project board is open, **When** a team member creates a task with a title and selects a predefined user, **Then** the task is placed in ToDo and shows the selected assignee.
 3. **Given** a team member attempts to create a project or task without its required name or title, **When** they submit it, **Then** the platform does not create the item and identifies the missing information.
 
 ---
@@ -95,8 +95,8 @@ As a predefined team member, I want to add and read comments on a task so that d
 - **FR-003**: The platform MUST present three sample projects when first opened, each available as a separate project board.
 - **FR-004**: The platform MUST allow an active team member to create a project with a non-empty, unique project name.
 - **FR-005**: The platform MUST allow an active team member to create a task within a project using a non-empty title, an optional description, and an optional assignment to one predefined user.
-- **FR-006**: The platform MUST place newly created tasks in the To Do column.
-- **FR-007**: The platform MUST display every project task in exactly one of these workflow columns: To Do, In Progress, In Review, or Done.
+- **FR-006**: The platform MUST place newly created tasks in the ToDo column.
+- **FR-007**: The platform MUST display every project task in exactly one of these workflow columns: ToDo, InProgress, InReview, or Done.
 - **FR-008**: The platform MUST allow any active predefined team member to move a task between any of the four workflow columns.
 - **FR-009**: The platform MUST retain a task's title, description, assignment, comments, and project association when its workflow column changes.
 - **FR-010**: The platform MUST allow any active predefined team member to add a non-empty text comment to any task under their selected predefined identity.
@@ -116,7 +116,7 @@ The canonical predefined-user roster is: Maya Chen (Product Manager), Jordan Lee
 - **Project**: A named collection of tasks with its own board; the initial workspace contains three sample projects.
 - **Task**: A work item belonging to one project, with a title, optional description, optional assignee, current workflow column, and associated comments.
 - **Comment**: A non-empty discussion entry associated with one task, recording its text, predefined-user author, and creation time.
-- **Kanban Column**: One of the four fixed task states: To Do, In Progress, In Review, or Done.
+- **Kanban Column**: One of the four fixed task states: ToDo, InProgress, InReview, or Done.
 
 ## Success Criteria *(mandatory)*
 
