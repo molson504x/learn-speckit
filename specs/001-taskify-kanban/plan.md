@@ -26,7 +26,7 @@ Taskify lets five predefined users (one PM, four engineers) create projects, cre
 
 **Performance Goals**: Board interactions (task move, assign, comment) render optimistically within 200ms; real-time board updates propagate to other connected clients within 1 second via SignalR
 
-**Constraints**: No user authentication/login in this phase (predefined-user selection only, per FR-002/FR-014); SQLite is single-writer per database, so each service's write volume must stay within SQLite's concurrency limits for the 5-user/3-project scale; must run fully via `dotnet run` on the Aspire AppHost for local development
+**Constraints**: No user authentication/login in this phase (predefined-user selection only, per FR-002/FR-014); every mutation carries and server-validates the selected predefined acting-user ID; concurrent updates to the same task and keyboard task movement are out of scope for this phase; SQLite is single-writer per database, so each service's write volume must stay within SQLite's concurrency limits for the 5-user/3-project scale; must run fully via `dotnet run` on the Aspire AppHost for local development
 
 **Scale/Scope**: 5 predefined users, 3 seed projects, 4 fixed Kanban columns, small demo/internal scale (not designed for public multi-tenant load)
 

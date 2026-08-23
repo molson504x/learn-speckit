@@ -23,6 +23,7 @@ dotnet run
 2. Confirm the board shows exactly 4 columns: To Do, In Progress, In Review, Done (see [contracts/tasks-api.md](./contracts/tasks-api.md)).
 3. Drag a task from To Do to In Progress, then to In Review, then to Done.
 4. Reload the page (or open the board in a second browser tab) and confirm the task appears in Done with its title, assignee, and comments unchanged — this also proves the [SignalR real-time broadcast](./contracts/notifications-api.md) delivered the move to the second client.
+5. Repeat a move as each of the five predefined active users and confirm the service accepts only those predefined identities for mutations; concurrent updates to the same task and keyboard task movement are outside this phase.
 
 ## Validate User Story 2 — Create and assign project work (P2)
 

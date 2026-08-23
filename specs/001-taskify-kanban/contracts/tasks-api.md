@@ -29,12 +29,13 @@ Comments are always ordered ascending by `createdAtUtc` (FR-011). An empty proje
 
 **Request**
 ```json
-{ "projectId": "guid", "title": "string", "description": "string|null", "assigneeUserId": "guid|null" }
+{ "projectId": "guid", "title": "string", "description": "string|null", "assigneeUserId": "guid|null", "actingUserId": "guid" }
 ```
 
 - `projectId` required, must exist (validated via Projects API `GET /api/projects/{id}/exists`).
 - `title` required, trimmed non-empty (FR-005, FR-012).
 - `assigneeUserId`, if present, must be one of the 5 predefined users (FR-005, FR-013).
+- `actingUserId` required; the service validates it against the 5 predefined users for this mutation.
 - New task is created with `column = ToDo` (FR-006).
 
 **201 Created** — task as above (no comments yet).
@@ -46,12 +47,13 @@ Moves a task to a different Kanban column.
 
 **Request**
 ```json
-{ "column": "ToDo|InProgress|InReview|Done" }
+{ "column": "ToDo|InProgress|InReview|Done", "actingUserId": "guid" }
 ```
 
 **200 OK** — updated task. All other fields (title, description, assignee, comments, projectId) unchanged (FR-009).
 **404 Not Found** — unknown task id.
 **400 Bad Request** — `column` not one of the 4 valid values.
+- `actingUserId` is required and must be one of the 5 predefined users.
 
 ## `PATCH /api/tasks/{id}/assignee`
 
@@ -59,12 +61,13 @@ Assigns or reassigns a task (FR-011A).
 
 **Request**
 ```json
-{ "assigneeUserId": "guid|null" }
+{ "assigneeUserId": "guid|null", "actingUserId": "guid" }
 ```
 
 **200 OK** — updated task.
 **400 Bad Request** — `assigneeUserId` not one of the 5 predefined users.
 **404 Not Found** — unknown task id.
+- `actingUserId` is required and must be one of the 5 predefined users.
 
 ## `POST /api/tasks/{id}/comments`
 
@@ -74,7 +77,7 @@ Assigns or reassigns a task (FR-011A).
 ```
 
 - `text` required, trimmed non-empty (FR-010, FR-012).
-- `authorUserId` required, must be one of the 5 predefined users.
+- `authorUserId` required, represents the selected active user, and must be one of the 5 predefined users; the service validates it at the mutation boundary.
 
 **201 Created** — comment as in the task's `comments` array.
 **400 Bad Request** — empty/whitespace text or invalid author; no comment is added (FR-012).
