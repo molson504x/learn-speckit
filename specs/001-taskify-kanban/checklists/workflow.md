@@ -65,6 +65,28 @@
 - [ ] CHK029 - Is there a clear requirement definition for how invalid submissions are surfaced to the user, or is the user feedback behavior left unspecified? [Gap, Spec §FR-003, §FR-004, §FR-005, §FR-012]
 - [ ] CHK030 - Does the spec explicitly identify any intentionally excluded behaviors that could otherwise be mistaken for required support, such as custom users, editing tasks, or audit history? [Gap, Assumption, Spec §Assumptions]
 
+## Requirement Boundary & Change Control
+
+- [ ] CHK031 - Are the out-of-scope areas—editing and deleting tasks, audit history, notifications, reporting, and other lifecycle features—clearly bounded so they are not mistaken for hidden requirements? [Gap, Dependency, Spec §Assumptions]
+- [ ] CHK032 - Are future authentication, authorization, and user-management requirements explicitly excluded from this first phase to avoid conflicting with the no-login product model? [Ambiguity, Spec §FR-014, §Assumptions]
+- [ ] CHK033 - Is the assumption that predefined users are trusted internal identities explicit enough to distinguish from actual account-based authentication or access control? [Clarity, Spec §FR-002, §FR-014, §Assumptions]
+
+## Data Integrity & Workflow Safety
+
+- [ ] CHK034 - Are task integrity requirements clear for preserving project association, assignee, and existing comments when a task changes columns? [Completeness, Spec §FR-007, §FR-009]
+- [ ] CHK035 - Are requirements for duplicate project names, duplicate task titles within a project, and reassignments to the same user clearly defined to avoid ambiguous behavior? [Gap, Spec §FR-004, §FR-005, §FR-011A]
+- [ ] CHK036 - Are rules for tasks with descriptions, multiple comments, or no comments sufficiently specified to prevent inconsistent data expectations? [Coverage, Spec §FR-005, §FR-011, §Edge Cases]
+
+## User-Facing Feedback & Validation
+
+- [ ] CHK037 - Is the required user feedback when a submission is rejected or empty specified well enough to be testable in requirements terms? [Clarity, Spec §FR-004, §FR-005, §FR-012]
+- [ ] CHK038 - Are requirements for partial failures or validation failures documented consistently for project creation, task creation, and commenting flows? [Coverage, Exception Flow, Spec §FR-004, §FR-005, §FR-010, §FR-012]
+- [ ] CHK039 - Are the “no discussion recorded yet” and “empty board” states defined as explicit data or UI states rather than assumed implementation details? [Completeness, Spec §Edge Cases]
+
+## Release & Scope Confidence
+
+- [ ] CHK040 - Are the success criteria and assumptions sufficient to support a first-phase release without hidden requirements around login, permissions, or history management? [Consistency, Spec §Success Criteria, §Assumptions]
+
 ## Notes
 
 - Mark items `[x]` only after review confirms the requirement-quality criterion is satisfied.
