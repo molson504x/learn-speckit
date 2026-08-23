@@ -82,4 +82,4 @@ The constitution uses semantic versioning. A MAJOR version removes or redefines 
 governance requirement incompatibly; a MINOR version adds a principle or materially
 expands requirements; a PATCH version clarifies wording without changing obligations.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): confirm original adoption date | **Last Amended**: 2026-08-23
+**Version**: 1.0.0 | **Ratified**: 2026-08-23 | **Last Amended**: 2026-08-23
