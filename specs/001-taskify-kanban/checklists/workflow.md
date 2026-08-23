@@ -10,78 +10,76 @@
 
 ## Requirement Completeness
 
-- [ ] CHK001 - Are the five predefined users, their roles, and their distinct identities specified with enough precision to avoid ambiguity? [Completeness, Spec §FR-001]
+- [x] CHK001 - Are the five predefined users, their roles, and their distinct identities specified with enough precision to avoid ambiguity? [Completeness, Spec §FR-001]
 - [ ] CHK002 - Are the required project and task creation flows sufficiently documented for all active predefined users, including the initial sample data setup? [Completeness, Spec §FR-003, §FR-004, §FR-005]
-- [ ] CHK003 - Are the required project-board, task movement, assignment, and commenting capabilities fully represented across the core user journeys? [Completeness, Spec §FR-005, §FR-008, §FR-010, §FR-011A]
-- [ ] CHK004 - Are the missing requirements for empty-state behaviors, invalid inputs, and no-data states explicitly documented for project boards and task details? [Gap, Edge Case, Spec §Edge Cases]
+- [x] CHK003 - Are the required project-board, task movement, assignment, and commenting capabilities fully represented across the core user journeys? [Completeness, Spec §FR-005, §FR-008, §FR-010, §FR-011A]
+- [x] CHK004 - Are the missing requirements for empty-state behaviors, invalid inputs, and no-data states explicitly documented for project boards and task details? [Gap, Edge Case, Spec §Edge Cases]
 
 ## Requirement Clarity
 
-- [ ] CHK005 - Is the distinction between “active predefined user” and “authentication” made explicit enough to prevent confusion with login or authorization semantics? [Clarity, Spec §FR-002, §FR-014]
-- [ ] CHK006 - Are the rules for project naming and task titling clear enough to define non-empty, unique, and whitespace-only rejection behavior without ambiguity? [Clarity, Spec §FR-004, §FR-012]
-- [ ] CHK007 - Is the meaning of “any active predefined team member” consistent for creating, moving, assigning, and commenting across all board states and task types? [Clarity, Spec §FR-008, §FR-010, §FR-011A]
-- [ ] CHK008 - Are the requirements for comment ordering, author attribution, and timestamp display precise enough to be objectively verified? [Clarity, Spec §FR-011]
-- [ ] CHK009 - Is “no login required” scoped precisely to this first phase, without implying future identity, access control, or authentication behavior? [Ambiguity, Spec §FR-014, §Assumptions]
+- [x] CHK005 - Is the distinction between “active predefined user” and “authentication” made explicit enough to prevent confusion with login or authorization semantics? [Clarity, Spec §FR-002, §FR-014]
+- [x] CHK006 - Are the rules for project naming and task titling clear enough to define non-empty, unique, and whitespace-only rejection behavior without ambiguity? [Clarity, Spec §FR-004, §FR-012]
+- [x] CHK007 - Is the meaning of “any active predefined team member” consistent for creating, moving, assigning, and commenting across all board states and task types? [Clarity, Spec §FR-008, §FR-010, §FR-011A]
+- [x] CHK008 - Are the requirements for comment ordering, author attribution, and timestamp display precise enough to be objectively verified? [Clarity, Spec §FR-011]
+- [x] CHK009 - Is “no login required” scoped precisely to this first phase, without implying future identity, access control, or authentication behavior? [Ambiguity, Spec §FR-014, §Assumptions]
 
-## Requirement Consistency
-
-- [ ] CHK010 - Do the workflow requirements consistently state that each task exists in exactly one column while allowing movement across all four workflow states? [Consistency, Spec §FR-007, §FR-008]
-- [ ] CHK011 - Are the task metadata retention requirements consistent between move operations and assignment updates across the task lifecycle? [Consistency, Spec §FR-009, §FR-011A]
-- [ ] CHK012 - Are the validation rules for empty input consistent across project names, task titles, and comments, including the “whitespace-only” rule? [Consistency, Spec §FR-012, §Edge Cases]
-- [ ] CHK013 - Are the assumptions about no authentication and trusted internal identities aligned with the stated requirement that this phase does not require login or credentials? [Consistency, Spec §FR-014, §Assumptions]
+- [x] CHK010 - Do the workflow requirements consistently state that each task exists in exactly one column while allowing movement across all four workflow states? [Consistency, Spec §FR-007, §FR-008]
+- [x] CHK011 - Are the task metadata retention requirements consistent between move operations and assignment updates across the task lifecycle? [Consistency, Spec §FR-009, §FR-011A]
+- [x] CHK012 - Are the validation rules for empty input consistent across project names, task titles, and comments, including the “whitespace-only” rule? [Consistency, Spec §FR-012, §Edge Cases]
+- [x] CHK013 - Are the assumptions about no authentication and trusted internal identities aligned with the stated requirement that this phase does not require login or credentials? [Consistency, Spec §FR-014, §Assumptions]
 
 ## Acceptance Criteria Quality
 
-- [ ] CHK014 - Are the measurable success criteria specific enough to objectively validate task visibility, collaboration, and workflow operations within the stated time windows? [Acceptance Criteria, Spec §SC-001, §SC-002, §SC-003, §SC-004, §SC-005]
-- [ ] CHK015 - Can the “within 30 seconds,” “within 3 minutes,” and “within 1 minute” thresholds be objectively validated in a repeatable review or testing process? [Measurability, Spec §Success Criteria]
-- [ ] CHK016 - Are the success criteria aligned with the acceptance scenarios and user stories, or are any user-critical outcomes left without measurable validation? [Coverage, Spec §User Story 1-3, §Success Criteria]
+- [x] CHK014 - Are the measurable success criteria specific enough to objectively validate task visibility, collaboration, and workflow operations within the stated time windows? [Acceptance Criteria, Spec §SC-001, §SC-002, §SC-003, §SC-004, §SC-005]
+- [x] CHK015 - Can the “within 30 seconds,” “within 3 minutes,” and “within 1 minute” thresholds be objectively validated in a repeatable review or testing process? [Measurability, Spec §Success Criteria]
+- [x] CHK016 - Are the success criteria aligned with the acceptance scenarios and user stories, or are any user-critical outcomes left without measurable validation? [Coverage, Spec §User Story 1-3, §Success Criteria]
 
 ## Scenario Coverage
 
 - [ ] CHK017 - Are the primary, alternate, exception, and non-functional scenario requirements sufficiently represented for project creation, task movement, assignment, and comment flows? [Coverage, Spec §User Story 1-3]
-- [ ] CHK018 - Are recovery-style or failure-handling requirements documented for invalid submissions, invalid assignments, and empty-state tasks or comments? [Gap, Exception Flow, Spec §FR-012, §Edge Cases]
-- [ ] CHK019 - Are requirements defined for the scenario where a project has no tasks or a task has no comments, including the expected UI or data representation? [Coverage, Edge Case, Spec §Edge Cases]
+- [x] CHK018 - Are recovery-style or failure-handling requirements documented for invalid submissions, invalid assignments, and empty-state tasks or comments? [Gap, Exception Flow, Spec §FR-012, §Edge Cases]
+- [x] CHK019 - Are requirements defined for the scenario where a project has no tasks or a task has no comments, including the expected UI or data representation? [Coverage, Edge Case, Spec §Edge Cases]
 
 ## Edge Case Coverage
 
-- [ ] CHK020 - Are edge cases for whitespace-only names, invalid users, duplicate names, and no-data views explicitly addressed and consistently enforced? [Edge Case, Spec §FR-004, §FR-012, §FR-013, §Edge Cases]
-- [ ] CHK021 - Are the boundary conditions for task assignments and board transitions fully specified when a task is reassigned or moved between all four columns? [Edge Case, Spec §FR-007, §FR-008, §FR-011A]
-- [ ] CHK022 - Are there explicit requirements for handling comments containing only whitespace or collections of empty comments? [Gap, Edge Case, Spec §FR-010, §FR-012]
+- [x] CHK020 - Are edge cases for whitespace-only names, invalid users, duplicate names, and no-data views explicitly addressed and consistently enforced? [Edge Case, Spec §FR-004, §FR-012, §FR-013, §Edge Cases]
+- [x] CHK021 - Are the boundary conditions for task assignments and board transitions fully specified when a task is reassigned or moved between all four columns? [Edge Case, Spec §FR-007, §FR-008, §FR-011A]
+- [x] CHK022 - Are there explicit requirements for handling comments containing only whitespace or collections of empty comments? [Gap, Edge Case, Spec §FR-010, §FR-012]
 
 ## Non-Functional Requirements
 
-- [ ] CHK023 - Are the no-login and no-credential requirements clearly framed as a phase-specific product constraint rather than a security or access-control model? [Non-Functional, Spec §FR-014, §Assumptions]
+- [x] CHK023 - Are the no-login and no-credential requirements clearly framed as a phase-specific product constraint rather than a security or access-control model? [Non-Functional, Spec §FR-014, §Assumptions]
 - [ ] CHK024 - Are security-related assumptions about trusted internal identities, data integrity, and no-login access documented enough to support future compliance or authorization requirements? [Non-Functional, Security, Spec §Assumptions, §Constitution]
 
 ## Dependencies & Assumptions
 
-- [ ] CHK025 - Are the assumptions about the fixed roster of five users, the three sample projects, and the two-level identity model documented as implementation-independent requirements? [Assumption, Spec §FR-001, §FR-003, §Assumptions]
-- [ ] CHK026 - Are out-of-scope items—such as editing, deleting, notifications, due dates, reporting, and permissions—explicitly bounded so they do not create hidden requirements? [Dependency, Spec §Assumptions]
-- [ ] CHK027 - Is the dependency on predefined sample data and internal team identities documented clearly enough to prevent later confusion about data source and ownership? [Dependency, Spec §FR-001, §FR-003, §Assumptions]
+- [x] CHK025 - Are the assumptions about the fixed roster of five users, the three sample projects, and the two-level identity model documented as implementation-independent requirements? [Assumption, Spec §FR-001, §FR-003, §Assumptions]
+- [x] CHK026 - Are out-of-scope items—such as editing, deleting, notifications, due dates, reporting, and permissions—explicitly bounded so they do not create hidden requirements? [Dependency, Spec §Assumptions]
+- [x] CHK027 - Is the dependency on predefined sample data and internal team identities documented clearly enough to prevent later confusion about data source and ownership? [Dependency, Spec §FR-001, §FR-003, §Assumptions]
 
 ## Ambiguities & Conflicts
 
-- [ ] CHK028 - Are there any unresolved ambiguities between the first-phase no-login model, trusted predefined identities, and future authorization or permission rules that should be explicitly called out? [Conflict, Gap, Spec §FR-002, §FR-014, §Assumptions]
-- [ ] CHK029 - Is there a clear requirement definition for how invalid submissions are surfaced to the user, or is the user feedback behavior left unspecified? [Gap, Spec §FR-003, §FR-004, §FR-005, §FR-012]
+- [x] CHK028 - Are there any unresolved ambiguities between the first-phase no-login model, trusted predefined identities, and future authorization or permission rules that should be explicitly called out? [Conflict, Gap, Spec §FR-002, §FR-014, §Assumptions]
+- [x] CHK029 - Is there a clear requirement definition for how invalid submissions are surfaced to the user, or is the user feedback behavior left unspecified? [Gap, Spec §FR-003, §FR-004, §FR-005, §FR-012]
 - [ ] CHK030 - Does the spec explicitly identify any intentionally excluded behaviors that could otherwise be mistaken for required support, such as custom users, editing tasks, or audit history? [Gap, Assumption, Spec §Assumptions]
 
 ## Requirement Boundary & Change Control
 
 - [ ] CHK031 - Are the out-of-scope areas—editing and deleting tasks, audit history, notifications, reporting, and other lifecycle features—clearly bounded so they are not mistaken for hidden requirements? [Gap, Dependency, Spec §Assumptions]
 - [ ] CHK032 - Are future authentication, authorization, and user-management requirements explicitly excluded from this first phase to avoid conflicting with the no-login product model? [Ambiguity, Spec §FR-014, §Assumptions]
-- [ ] CHK033 - Is the assumption that predefined users are trusted internal identities explicit enough to distinguish from actual account-based authentication or access control? [Clarity, Spec §FR-002, §FR-014, §Assumptions]
+- [x] CHK033 - Is the assumption that predefined users are trusted internal identities explicit enough to distinguish from actual account-based authentication or access control? [Clarity, Spec §FR-002, §FR-014, §Assumptions]
 
 ## Data Integrity & Workflow Safety
 
-- [ ] CHK034 - Are task integrity requirements clear for preserving project association, assignee, and existing comments when a task changes columns? [Completeness, Spec §FR-007, §FR-009]
-- [ ] CHK035 - Are requirements for duplicate project names, duplicate task titles within a project, and reassignments to the same user clearly defined to avoid ambiguous behavior? [Gap, Spec §FR-004, §FR-005, §FR-011A]
-- [ ] CHK036 - Are rules for tasks with descriptions, multiple comments, or no comments sufficiently specified to prevent inconsistent data expectations? [Coverage, Spec §FR-005, §FR-011, §Edge Cases]
+- [x] CHK034 - Are task integrity requirements clear for preserving project association, assignee, and existing comments when a task changes columns? [Completeness, Spec §FR-007, §FR-009]
+- [x] CHK035 - Are requirements for duplicate project names, duplicate task titles within a project, and reassignments to the same user clearly defined to avoid ambiguous behavior? [Gap, Spec §FR-004, §FR-005, §FR-011A]
+- [x] CHK036 - Are rules for tasks with descriptions, multiple comments, or no comments sufficiently specified to prevent inconsistent data expectations? [Coverage, Spec §FR-005, §FR-011, §Edge Cases]
 
 ## User-Facing Feedback & Validation
 
-- [ ] CHK037 - Is the required user feedback when a submission is rejected or empty specified well enough to be testable in requirements terms? [Clarity, Spec §FR-004, §FR-005, §FR-012]
-- [ ] CHK038 - Are requirements for partial failures or validation failures documented consistently for project creation, task creation, and commenting flows? [Coverage, Exception Flow, Spec §FR-004, §FR-005, §FR-010, §FR-012]
-- [ ] CHK039 - Are the “no discussion recorded yet” and “empty board” states defined as explicit data or UI states rather than assumed implementation details? [Completeness, Spec §Edge Cases]
+- [x] CHK037 - Is the required user feedback when a submission is rejected or empty specified well enough to be testable in requirements terms? [Clarity, Spec §FR-004, §FR-005, §FR-012]
+- [x] CHK038 - Are requirements for partial failures or validation failures documented consistently for project creation, task creation, and commenting flows? [Coverage, Exception Flow, Spec §FR-004, §FR-005, §FR-010, §FR-012]
+- [x] CHK039 - Are the “no discussion recorded yet” and “empty board” states defined as explicit data or UI states rather than assumed implementation details? [Completeness, Spec §Edge Cases]
 
 ## Release & Scope Confidence
 
