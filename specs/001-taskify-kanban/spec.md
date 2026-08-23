@@ -12,6 +12,11 @@
 
 ### Session 2026-08-23
 
+- Q: Should the Kanban board require keyboard-accessible task movement in addition to drag-and-drop? → A: Leave accessibility behavior implementation-defined.
+- Q: Should this phase explicitly exclude custom users, editing or deleting records, audit history, notifications, reporting, attachments, due dates, and access controls? → A: Leave these capabilities unspecified for planning.
+- Q: Must every project, task, assignment, and comment mutation validate the selected active user against the five predefined identities at the service boundary? → A: Validate the acting user server-side for every mutation; no login required.
+- Q: When two active users update the same task concurrently, which update should the platform keep? → A: Concurrent updates are out of scope for this phase.
+- Q: What minimum sample data must the three initial projects provide? → A: Across all three projects, the dataset must collectively include at least one task in each of the four Kanban columns and at least one task with a comment.
 - Q: Should the specification explicitly state that this phase excludes account authentication, authorization, user management, custom users, audit history, and compliance guarantees? → A: Treat the current no-login model as sufficient security coverage.
 - Q: What repeatable protocol should validate the 30-second, 3-minute, and 1-minute success thresholds? → A: Test five representative users from a clean seeded workspace using scripted scenarios and a stopwatch; at least four of five users must meet each threshold.
 - Q: Should task titles be allowed to repeat within a project, and should assigning a task to its current assignee be accepted as an unchanged no-op? → A: Duplicate task titles are allowed; reassignment to the current assignee succeeds as a no-op.
@@ -75,6 +80,8 @@ As a predefined team member, I want to add and read comments on a task so that d
 - A task cannot be assigned to someone outside the five predefined users.
 - Duplicate task titles within a project are allowed because task identity is distinct from its title.
 - Assigning a task to its current assignee succeeds without changing the task.
+- Concurrent updates to the same task are out of scope for this phase.
+- Accessibility behavior for task movement is implementation-defined for this phase; the specification does not require keyboard-accessible movement in addition to drag-and-drop.
 - A task cannot appear in more than one board column at the same time.
 - When a project has no tasks, its board displays all four workflow columns as empty rather than failing to load.
 - When a project has no comments on a task, task details clearly show that no discussion has been recorded yet.
@@ -125,7 +132,8 @@ The canonical predefined-user roster is: Maya Chen (Product Manager), Jordan Lee
 
 - The five predefined users are trusted internal team identities for this first phase; choosing an active identity is a convenience mechanism, not authentication or authorization.
 - For this trusted internal first phase, the no-login predefined-user selection model is considered sufficient security coverage for the feature's stated scope; this does not claim to satisfy future account-based authentication, authorization, audit, or compliance requirements.
+- Mutation identity validation at the service boundary is required for this phase: every mutation must validate the selected active user against the five predefined identities, while login and authentication remain out of scope.
 - Any selected predefined user may create projects and tasks, move tasks, assign tasks, and add comments during this first phase.
-- Sample projects include enough representative tasks to demonstrate each workflow column and commenting without requiring the user to create initial data.
+- Across the three sample projects, the initial dataset collectively includes at least one task in each of the four workflow columns and at least one task with a comment, without requiring the user to create initial data.
 - Project names are unique within this first-phase workspace to avoid ambiguity in the project list.
-- Editing or deleting projects, tasks, assignments, and comments; attachments; notifications; due dates; reporting; and access controls are outside this feature's scope.
+- Custom users, editing or deleting projects, tasks, assignments, and comments; audit history; attachments; notifications; due dates; reporting; and access controls remain unspecified for planning and are not requirements for this phase.
