@@ -9,7 +9,7 @@
 | `Role` | enum (`ProductManager`, `Engineer`) | Exactly 1 `ProductManager` and 4 `Engineer` values in the roster |
 
 - No create/update/delete operations — the roster is fixed seed data per FR-001.
-- Referenced by ID from `Project.CreatedByUserId` (optional, for audit), `Task.AssigneeUserId`, and `Comment.AuthorUserId`.
+- Referenced by ID from `Project.CreatedByUserId`, `Task.AssigneeUserId`, and `Comment.AuthorUserId`.
 
 ## Project *(owned by Taskify.ProjectsApi, stored in projects.db)*
 
@@ -17,11 +17,13 @@
 |-------|------|-------|
 | `Id` | GUID | Primary key, generated on create |
 | `Name` | string | Required; trimmed non-empty (FR-012); unique across all projects (Assumptions) |
+| `CreatedByUserId` | GUID | Required; selected acting user, validated against the five predefined users |
 | `CreatedAtUtc` | DateTime | Set on create, immutable |
 
 - Seed data: exactly 3 sample projects created at first run (FR-003).
 - Relationships: a project has many tasks (owned by Tasks API, related by `ProjectId`, not a DB foreign key).
 - Validation: reject create when `Name` is empty/whitespace or already exists (case-insensitive) → 400 with a field-level error, no partial write (FR-004, FR-012).
+- `CreatedByUserId` is immutable provenance, not an audit-history feature.
 
 ## Task *(owned by Taskify.TasksApi, stored in tasks.db)*
 

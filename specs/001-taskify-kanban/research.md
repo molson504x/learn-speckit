@@ -40,4 +40,4 @@
 
 ## Outcome
 
-All technical unknowns are resolved; no `NEEDS CLARIFICATION` markers remain in the Technical Context.
+All technical unknowns are resolved; no `NEEDS CLARIFICATION` markers remain in the Technical Context. The clarified first-phase boundaries are server-side validation of every mutation's predefined acting-user ID, collective (not per-project) sample-data coverage, no required concurrent-update resolution, and implementation-defined accessibility behavior for task movement.
