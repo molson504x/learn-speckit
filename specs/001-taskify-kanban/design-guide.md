@@ -9,7 +9,7 @@
 ## Color Palette
 
 ### Primary Colors
-- **Brand Blue**: `#0066CC` — Used for primary action buttons, links, active states
+- **Brand Purple**: `#6D28D9` — Used for primary action buttons, links, active states
 - **Neutral Gray**: `#F5F7FA` — Background for secondary surfaces, task cards
 - **Dark Gray**: `#1F2937` — Text color, component borders
 
@@ -17,7 +17,7 @@
 - **Success Green**: `#10B981` — Positive actions, success messages (e.g., "Comment added")
 - **Warning Orange**: `#F59E0B` — Caution messages, pending states (e.g., "Saving...")
 - **Error Red**: `#EF4444` — Validation errors, destructive confirmations (e.g., "Invalid input")
-- **Info Blue**: `#3B82F6` — Informational messages (e.g., "Task moved by Jordan")
+- **Info Teal**: `#0F766E` — Informational messages (e.g., "Task moved by Jordan")
 
 ### Contrast Requirements (WCAG 2.1 Level AA)
 - Text on background: Minimum ratio 4.5:1 for normal text, 3:1 for large text (≥18pt or ≥14pt bold)
@@ -27,8 +27,8 @@
 ### Examples
 ```
 ✓ Dark Gray (#1F2937) text on Neutral Gray (#F5F7FA) background: 11.5:1 contrast ✅
-✓ Brand Blue (#0066CC) button on Neutral Gray background: 8.3:1 contrast ✅
-✗ Brand Blue (#0066CC) text on Neutral Gray background: 4.3:1 contrast ⚠️ Use Dark Gray instead
+✓ Brand Purple (#6D28D9) button on Neutral Gray background: passes AA contrast ✅
+✓ Brand Purple (#6D28D9) text on Neutral Gray background: passes AA contrast ✅
 ```
 
 ---
@@ -119,9 +119,9 @@ Spacing:
 
 Header:
   - Column name (e.g., "ToDo"): 14px semibold, Dark Gray
-  - Task count badge: 12px, Brand Blue background, white text, border-radius 12px
+  - Task count badge: 12px, Brand Purple background, white text, border-radius 12px
   - Min-height: 40px
-  - Border-bottom: 2px solid Brand Blue
+  - Border-bottom: 2px solid Brand Purple
 
 States:
   - Empty: Display placeholder text "No tasks yet" in 12px light gray
@@ -144,7 +144,7 @@ Spacing:
 
 Layout:
   - Title: 14px semibold, Dark Gray, single line with text-overflow ellipsis
-  - Assignee: 12px regular, Brand Blue, display user avatar (if available) or initials
+  - Assignee: 12px regular, Brand Purple, display user avatar (if available) or initials
   - Description: 12px regular, medium gray, 2-line max with ellipsis (if present)
   - Comment count badge (if > 0): 11px, Success Green background, white text, bottom-right corner
 
@@ -153,7 +153,7 @@ States:
   - Hover: Box shadow 0 4px 6px rgba(0, 0, 0, 0.1); cursor grab
   - Dragging: Opacity 0.7, box shadow 0 10px 15px rgba(0, 0, 0, 0.2); cursor grabbing
   - Drop-Target: Background becomes 90% opacity with dashed border
-  - Active (clicked/selected): Border becomes 2px solid Brand Blue
+  - Active (clicked/selected): Border becomes 2px solid Brand Purple
 ```
 
 ### Form Input Fields
@@ -167,7 +167,7 @@ Dimensions:
 
 States:
   - Default: White background, medium gray border
-  - Focus: White background, 2px Brand Blue border, box shadow 0 0 0 3px rgba(0, 102, 204, 0.1)
+  - Focus: White background, 2px Brand Purple border, box shadow 0 0 0 3px rgba(109, 40, 217, 0.1)
   - Filled: White background, Dark Gray text
   - Error: White background, 2px Error Red border, red label text
   - Disabled: #F3F4F6 background, #9CA3AF text, opacity 0.5
@@ -195,7 +195,7 @@ Helper Text:
 
 ```
 Primary Button (Action Buttons):
-  - Background: Brand Blue (#0066CC)
+  - Background: Brand Purple (#6D28D9)
   - Text: White, 14px semibold
   - Padding: 10px 16px
   - Border-radius: 6px
@@ -224,7 +224,7 @@ Destructive Button (Delete/Confirm Danger):
   - Requires confirmation dialog before action
 
 Focus Ring (for Keyboard Navigation):
-  - Outline: 2px solid Brand Blue
+  - Outline: 2px solid Brand Purple
   - Outline-offset: 2px
   - Border-radius: 4px
 ```
@@ -344,8 +344,8 @@ Before release, perform:
 ## Visual Refinements
 
 ### Drop Zone Indicator (Drag & Drop)
-- Display a **dashed border** (2px, Brand Blue) around the target column when user drags a task over it
-- Add a **highlight color** (Brand Blue at 10% opacity) to the column background
+- Display a **dashed border** (2px, Brand Purple) around the target column when user drags a task over it
+- Add a **highlight color** (Brand Purple at 10% opacity) to the column background
 - Show a **visual placeholder** (thin gray box, 48px height) indicating where the task will be dropped
 - Remove indicator immediately when drag ends
 
