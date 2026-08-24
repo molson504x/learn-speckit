@@ -1,39 +1,34 @@
+using Microsoft.EntityFrameworkCore;
+using Taskify.NotificationsApi.Data;
+using Taskify.ServiceDefaults;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.AddServiceDefaults();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
+builder.Services.AddSignalR();
+
+builder.Services.AddDbContext<NotificationsDbContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("NotificationsDb")
+        ?? builder.Configuration["ConnectionStrings:NotificationsDb"]
+        ?? "Data Source=notifications.db";
+
+    options.UseSqlite(connectionString);
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+await NotificationsDbInitializer.InitializeAsync(app.Services);
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.MapGet("/", () => Results.Ok(new { service = "Taskify.NotificationsApi" }));
+app.MapHub<Taskify.NotificationsApi.Hubs.BoardHub>("/hubs/board");
+app.MapDefaultEndpoints();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

@@ -16,7 +16,7 @@
 
 ## 3. Cross-service data relationships (Task → Project, Task → User)
 
-- **Decision**: Tasks reference `ProjectId` and `AssigneeUserId`/`CommentAuthorUserId` by value (GUID/int), not by foreign key into another service's database. The Tasks API validates a `ProjectId` by calling the Projects API's contract (or a cached lookup) before creating a task; predefined-user IDs are validated against a shared, versioned reference dataset embedded via `Taskify.ServiceDefaults` (static seed list of the 5 users), since users are fixed, read-only reference data with no service of their own.
+- **Decision**: Tasks reference `ProjectId` and `AssigneeUserId`/`CommentAuthorUserId` by value (GUID/int), not by foreign key into another service's database. The Tasks API validates a `ProjectId` by calling the Projects API's contract (or a cached lookup) before creating a task; predefined-user IDs are validated against a shared, versioned reference dataset and validation helper in `Taskify.ServiceDefaults` (static seed list of the 5 users), since users are fixed, read-only reference data with no service of their own.
 - **Rationale**: Keeps each service authoritative over only its own entities while still enforcing FR-005 (valid assignee), FR-011A, and FR-013 (no assignment outside the 5 users) at the boundary that needs it, in line with Validated Inputs and Service Boundaries.
 - **Alternatives considered**: A separate Users microservice (rejected as over-engineering — there are exactly 5 immutable, seed-only users with no lifecycle operations required by the spec); direct cross-service DB joins (rejected — explicitly prohibited by the constitution).
 

@@ -9,6 +9,7 @@
 | `Role` | enum (`ProductManager`, `Engineer`) | Exactly 1 `ProductManager` and 4 `Engineer` values in the roster |
 
 - No create/update/delete operations — the roster is fixed seed data per FR-001.
+- Validation helpers in `Taskify.ServiceDefaults` enforce that any incoming user ID matches one of these five immutable seeds before a service mutates state.
 - Referenced by ID from `Project.CreatedByUserId`, `Task.AssigneeUserId`, and `Comment.AuthorUserId`.
 
 ## Project *(owned by Taskify.ProjectsApi, stored in projects.db)*

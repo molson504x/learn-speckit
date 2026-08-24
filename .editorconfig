@@ -15,6 +15,9 @@ dotnet_style_qualification_for_field = false:suggestion
 dotnet_style_qualification_for_property = false:suggestion
 dotnet_style_qualification_for_method = false:suggestion
 dotnet_style_qualification_for_event = false:suggestion
+dotnet_diagnostic.SA0001.severity = none
+dotnet_diagnostic.SA1200.severity = none
+dotnet_diagnostic.SA1633.severity = none
 
 [*.{json,csproj,props,targets,yml,yaml}]
 indent_size = 2

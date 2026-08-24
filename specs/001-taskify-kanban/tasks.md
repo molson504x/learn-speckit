@@ -44,45 +44,45 @@
 
 ### Shared Reference Data & Aspire Orchestration
 
-- [ ] T006 [P] Define PredefinedUser entity and seeded roster (5 users: Maya Chen PM, Jordan Lee Engineer, Priya Shah Engineer, Luis Garcia Engineer, Ava Williams Engineer) in `src/Taskify.ServiceDefaults/ReferenceData/PredefinedUsers.cs`
-- [ ] T007 [P] Create `Taskify.AppHost` Aspire AppHost project with service discovery configuration and resource definitions in `src/Taskify.AppHost/Program.cs`
-- [ ] T008 [P] Configure SQLite data volumes and mounts for each service database in AppHost (`projects.db`, `tasks.db`, `notifications.db`)
-- [ ] T009 [P] Implement `Taskify.ServiceDefaults` project with OpenTelemetry, health checks, and resilience middleware extensions in `src/Taskify.ServiceDefaults/Extensions.cs`
-- [ ] T010 [P] Create shared KanbanColumn enum (ToDo, InProgress, InReview, Done) in `src/Taskify.ServiceDefaults/Models/KanbanColumn.cs`
+- [X] T006 [P] Define PredefinedUser entity and seeded roster (5 users: Maya Chen PM, Jordan Lee Engineer, Priya Shah Engineer, Luis Garcia Engineer, Ava Williams Engineer) in `src/Taskify.ServiceDefaults/ReferenceData/PredefinedUsers.cs`
+- [X] T007 [P] Create `Taskify.AppHost` Aspire AppHost project with service discovery configuration and resource definitions in `src/Taskify.AppHost/Program.cs`
+- [X] T008 [P] Configure SQLite data volumes and mounts for each service database in AppHost (`projects.db`, `tasks.db`, `notifications.db`)
+- [X] T009 [P] Implement `Taskify.ServiceDefaults` project with OpenTelemetry, health checks, and resilience middleware extensions in `src/Taskify.ServiceDefaults/Extensions.cs`
+- [X] T010 [P] Create shared KanbanColumn enum (ToDo, InProgress, InReview, Done) in `src/Taskify.ServiceDefaults/Models/KanbanColumn.cs`
 
 ### Projects API Foundation
 
-- [ ] T011 [P] Create Projects API ASP.NET Core project with minimal API structure in `src/Taskify.ProjectsApi/Program.cs`
-- [ ] T012 [P] Create EF Core DbContext `ProjectsDbContext` for projects.db with migrations in `src/Taskify.ProjectsApi/Data/ProjectsDbContext.cs`
-- [ ] T013 [P] Define Project model entity in `src/Taskify.ProjectsApi/Models/Project.cs` (Id, Name, CreatedByUserId, CreatedAtUtc)
-- [ ] T014 Create Projects API database initialization with EF Core migrations and seeding in `src/Taskify.ProjectsApi/Data/ProjectsSeeder.cs`
+- [X] T011 [P] Create Projects API ASP.NET Core project with minimal API structure in `src/Taskify.ProjectsApi/Program.cs`
+- [X] T012 [P] Create EF Core DbContext `ProjectsDbContext` for projects.db with migrations in `src/Taskify.ProjectsApi/Data/ProjectsDbContext.cs`
+- [X] T013 [P] Define Project model entity in `src/Taskify.ProjectsApi/Models/Project.cs` (Id, Name, CreatedByUserId, CreatedAtUtc)
+- [X] T014 Create Projects API database initialization with EF Core migrations and seeding in `src/Taskify.ProjectsApi/Data/ProjectsSeeder.cs`
 
 ### Tasks API Foundation
 
-- [ ] T015 [P] Create Tasks API ASP.NET Core project with minimal API structure in `src/Taskify.TasksApi/Program.cs`
-- [ ] T016 [P] Create EF Core DbContext `TasksDbContext` for tasks.db with migrations in `src/Taskify.TasksApi/Data/TasksDbContext.cs`
-- [ ] T017 [P] Define Task model entity in `src/Taskify.TasksApi/Models/Task.cs` (Id, ProjectId, Title, Description, AssigneeUserId, Column, CreatedAtUtc)
-- [ ] T018 [P] Define Comment model entity in `src/Taskify.TasksApi/Models/Comment.cs` (Id, TaskId, AuthorUserId, Text, CreatedAtUtc)
-- [ ] T019 Create Tasks API database initialization with EF Core migrations in `src/Taskify.TasksApi/Data/TasksDbContext.cs` (no seed data until P2)
+- [X] T015 [P] Create Tasks API ASP.NET Core project with minimal API structure in `src/Taskify.TasksApi/Program.cs`
+- [X] T016 [P] Create EF Core DbContext `TasksDbContext` for tasks.db with migrations in `src/Taskify.TasksApi/Data/TasksDbContext.cs`
+- [X] T017 [P] Define Task model entity in `src/Taskify.TasksApi/Models/Task.cs` (Id, ProjectId, Title, Description, AssigneeUserId, Column, CreatedAtUtc)
+- [X] T018 [P] Define Comment model entity in `src/Taskify.TasksApi/Models/Comment.cs` (Id, TaskId, AuthorUserId, Text, CreatedAtUtc)
+- [X] T019 Create Tasks API database initialization with EF Core migrations in `src/Taskify.TasksApi/Data/TasksDbContext.cs` (no seed data until P2)
 
 ### Notifications API Foundation
 
-- [ ] T020 [P] Create Notifications API ASP.NET Core project with minimal API structure in `src/Taskify.NotificationsApi/Program.cs`
-- [ ] T021 [P] Create EF Core DbContext `NotificationsDbContext` for notifications.db with migrations in `src/Taskify.NotificationsApi/Data/NotificationsDbContext.cs`
-- [ ] T022 [P] Define NotificationEvent model entity in `src/Taskify.NotificationsApi/Models/NotificationEvent.cs` (Id, ProjectId, EventType, Payload, OccurredAtUtc)
-- [ ] T023 [P] Create SignalR BoardHub with JoinProject/LeaveProject methods in `src/Taskify.NotificationsApi/Hubs/BoardHub.cs`
+- [X] T020 [P] Create Notifications API ASP.NET Core project with minimal API structure in `src/Taskify.NotificationsApi/Program.cs`
+- [X] T021 [P] Create EF Core DbContext `NotificationsDbContext` for notifications.db with migrations in `src/Taskify.NotificationsApi/Data/NotificationsDbContext.cs`
+- [X] T022 [P] Define NotificationEvent model entity in `src/Taskify.NotificationsApi/Models/NotificationEvent.cs` (Id, ProjectId, EventType, Payload, OccurredAtUtc)
+- [X] T023 [P] Create SignalR BoardHub with JoinProject/LeaveProject methods in `src/Taskify.NotificationsApi/Hubs/BoardHub.cs`
 
 ### Frontend Foundation
 
-- [ ] T024 [P] Create Blazor Server project structure with App.razor and MainLayout in `src/Taskify.Web/`
-- [ ] T025 [P] Create typed HttpClient services for ProjectsApi, TasksApi, NotificationsApi in `src/Taskify.Web/Services/`
-- [ ] T026 [P] Configure Blazor project to reference AppHost via Aspire service discovery in `src/Taskify.Web/Program.cs`
-- [ ] T027 Create PredefinedUser selection component in `src/Taskify.Web/Components/UserSelector.razor` (displays 5 users, saves selection to session)
+- [X] T024 [P] Create Blazor Server project structure with App.razor and MainLayout in `src/Taskify.Web/`
+- [X] T025 [P] Create typed HttpClient services for ProjectsApi, TasksApi, NotificationsApi in `src/Taskify.Web/Services/`
+- [X] T026 [P] Configure Blazor project to reference AppHost via Aspire service discovery in `src/Taskify.Web/Program.cs`
+- [X] T027 Create PredefinedUser selection component in `src/Taskify.Web/Components/UserSelector.razor` (displays 5 users, saves selection to session)
 
 ### Service Inter-Communication
 
-- [ ] T028 [P] Configure HttpClient factory and service discovery names in each API Program.cs for cross-service calls
-- [ ] T029 [P] Add shared validation utilities for predefined-user ID and input validation in `src/Taskify.ServiceDefaults/Validation/` and update README.md plus specs/001-taskify-kanban/research.md / data-model.md with the shared validation and service-boundary decisions
+- [X] T028 [P] Configure HttpClient factory and service discovery names in each API Program.cs for cross-service calls
+- [X] T029 [P] Add shared validation utilities for predefined-user ID and input validation in `src/Taskify.ServiceDefaults/Validation/` and update README.md plus specs/001-taskify-kanban/research.md / data-model.md with the shared validation and service-boundary decisions
 
 **Checkpoint**: Foundation ready — user story implementation can now begin in parallel
 
