@@ -28,16 +28,11 @@
         }
 
         var storedUser = await SessionStorage.GetAsync<Guid?>(StorageKey);
-        if (storedUser.Success && storedUser.Value is Guid storedUserId && PredefinedUsers.IsPredefinedUser(storedUserId))
+        if (storedUser.Success)
         {
-            SelectedUserId = storedUserId;
-            await SelectedUserIdChanged.InvokeAsync(storedUserId);
+            SelectedUserId = storedUser.Value;
         }
-        else if (storedUser.Success && storedUser.Value is not null)
-        {
-            SelectedUserId = null;
-            await SessionStorage.DeleteAsync(StorageKey);
-        }
+    }
 
     private async Task HandleSelectionChanged(ChangeEventArgs args)
     {
