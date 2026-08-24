@@ -11,20 +11,19 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddProtectedBrowserStorage();
-
 builder.Services.AddHttpClient<ProjectsApiClient>(client =>
 {
-    client.BaseAddress = new Uri(builder.Configuration["Services:ProjectsApi:BaseUrl"] ?? "https://localhost:5001");
+    client.BaseAddress = new Uri("https+http://projectsapi");
 });
 
 builder.Services.AddHttpClient<TasksApiClient>(client =>
 {
-    client.BaseAddress = new Uri(builder.Configuration["Services:TasksApi:BaseUrl"] ?? "https://localhost:5002");
+    client.BaseAddress = new Uri("https+http://tasksapi");
 });
 
 builder.Services.AddHttpClient<NotificationsApiClient>(client =>
 {
-    client.BaseAddress = new Uri(builder.Configuration["Services:NotificationsApi:BaseUrl"] ?? "https://localhost:5003");
+    client.BaseAddress = new Uri("https+http://notificationsapi");
 });
 
 var app = builder.Build();
