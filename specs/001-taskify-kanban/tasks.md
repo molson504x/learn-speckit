@@ -32,7 +32,7 @@
 - [x] T002 [P] Add .NET 9 / Aspire 9.x dependencies to all service projects via .csproj
 - [x] T003 [P] Configure linting and formatting (StyleCop, EditorConfig) in solution root
 - [x] T004 [P] Create .gitignore and .github/workflows for CI/CD pipeline scaffolding
-- [x] T005 Create src/ directory structure per project organization (Endpoints/, Models/, Data/, Components/, Pages/, Services/, Hubs/)
+- [x] T005 Create src/ directory structure per project organization (Endpoints/, Models/, Data/, Components/, Pages/, Services/, Hubs/) and update README.md plus specs/001-taskify-kanban/quickstart.md with the initial architecture and local run notes
 
 ---
 
@@ -82,7 +82,7 @@
 ### Service Inter-Communication
 
 - [ ] T028 [P] Configure HttpClient factory and service discovery names in each API Program.cs for cross-service calls
-- [ ] T029 [P] Add shared validation utilities for predefined-user ID and input validation in `src/Taskify.ServiceDefaults/Validation/`
+- [ ] T029 [P] Add shared validation utilities for predefined-user ID and input validation in `src/Taskify.ServiceDefaults/Validation/` and update README.md plus specs/001-taskify-kanban/research.md / data-model.md with the shared validation and service-boundary decisions
 
 **Checkpoint**: Foundation ready — user story implementation can now begin in parallel
 
@@ -136,7 +136,7 @@
 
 ### Integration Checkpoint for User Story 1
 
-- [ ] T053 [US1] Run all User Story 1 contract and integration tests; ensure 100% pass with sample-data seeding in place
+- [ ] T053 [US1] Run all User Story 1 contract and integration tests; ensure 100% pass with sample-data seeding in place and update README.md plus specs/001-taskify-kanban/design-guide.md with the board workflow, sample data, and real-time behavior notes
 
 **At this point, User Story 1 should be fully functional and testable independently:** 
 - A user can see all projects
@@ -198,7 +198,7 @@
 
 ### Integration Checkpoint for User Story 2
 
-- [ ] T079 [US2] Run all User Story 2 contract and integration tests; ensure 100% pass
+- [ ] T079 [US2] Run all User Story 2 contract and integration tests; ensure 100% pass and update README.md plus specs/001-taskify-kanban/quickstart.md with the project/task creation flow, validation examples, and role-based workflow notes
 
 **At this point, User Stories 1 AND 2 should both work independently:**
 - A user can create a new project with a unique non-empty name
@@ -252,12 +252,22 @@
 
 ### Integration Checkpoint for User Story 3
 
-- [ ] T099 [US3] Run all User Story 3 contract and integration tests; ensure 100% pass
+- [ ] T099 [US3] Run all User Story 3 contract and integration tests; ensure 100% pass and update README.md plus the task details/comment documentation with the final comment workflow, author timestamps, and real-time behavior notes
 
 **At this point, all three User Stories should work independently:**
 - A user can add a non-empty comment to any task
 - All comments display with their author name and creation timestamp
 - Comments are always shown in chronological order (oldest first)
+
+---
+
+## Phase 6: Final Polish & Documentation Sync
+
+**Purpose**: Final project validation and documentation consistency check before handoff
+
+- [ ] T100 Final documentation pass to update README.md and all feature docs (specs/001-taskify-kanban/quickstart.md, specs/001-taskify-kanban/research.md, specs/001-taskify-kanban/design-guide.md, and any service/usage notes) with the final implementation, validation outcomes, sample data, and known limitations
+- [ ] T101 Final validation sweep to confirm the README, quickstart, and feature documents match the shipped board workflow, task creation flow, comment flow, and local run instructions
+
 - New comments broadcast via SignalR to all clients viewing the same task/board
 - Empty comments are rejected without partial writes
 - Field-level errors are displayed inline

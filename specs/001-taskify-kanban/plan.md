@@ -26,6 +26,8 @@ Taskify lets five predefined users (one PM, four engineers) create projects, cre
 
 **Performance Goals**: Board interactions (task move, assign, comment) render optimistically within 200ms; real-time board updates propagate to other connected clients within 1 second via SignalR
 
+**Validation Protocol**: Use a clean seeded workspace and a stopwatch across five representative users; the acceptance threshold is four of five users completing board-open, create+assign+move, and comment flows within the time limits specified in SC-001 to SC-003. This protocol is part of the feature acceptance gate, not an implementation detail.
+
 **Constraints**: No user authentication/login in this phase (predefined-user selection only, per FR-002/FR-014); every mutation carries and server-validates the selected predefined acting-user ID; concurrent updates to the same task and keyboard task movement are out of scope for this phase; SQLite is single-writer per database, so each service's write volume must stay within SQLite's concurrency limits for the 5-user/3-project scale; must run fully via `dotnet run` on the Aspire AppHost for local development
 
 **Scale/Scope**: 5 predefined users, 3 seed projects, 4 fixed Kanban columns, small demo/internal scale (not designed for public multi-tenant load)
@@ -34,7 +36,7 @@ Taskify lets five predefined users (one PM, four engineers) create projects, cre
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- **Security-First**: This feature intentionally has no login (FR-002, FR-014), which is a partial deviation from "authorization MUST be enforced server-side at every protected boundary." Justification recorded in Complexity Tracking below: the spec explicitly scopes this to a trusted, internal, credential-free first phase with no sensitive data. All write endpoints still validate that the acting identity is one of the five predefined users (server-side identity validation, not authentication). PASS with documented exception.
+- **Security-First**: This feature intentionally has no login (FR-002, FR-014), which is a partial deviation from "authorization MUST be enforced server-side at every protected boundary." This is a scoped internal-first-phase exception, not a general policy change. The project must treat it as a release-gate exception requiring explicit review before broader rollout, while keeping all write endpoints validated against the five predefined users server-side. PASS with documented exception and governance note.
 - **Validated Inputs**: All service boundaries (Projects API, Tasks API, Notifications API) validate project name / task title / comment text as non-empty after trim, validate assignee and comment author against the 5 predefined user IDs, and return structured 400 errors without partial writes. PASS.
 - **Service Boundaries**: Each service (Projects, Tasks, Notifications) owns its own SQLite database and exposes only its versioned REST contract; no service reaches into another's database. Cross-service reads (e.g., Tasks API needing project existence) go through the Projects API contract, not direct DB access. PASS.
 - **Documented Code**: Each service's public endpoints, the predefined-user assumption, and the no-auth boundary will be documented in contracts/ and the service READMEs generated during implementation. PASS (tracked as an implementation obligation).

@@ -86,6 +86,18 @@ As a predefined team member, I want to add and read comments on a task so that d
 - When a project has no tasks, its board displays all four workflow columns as empty rather than failing to load.
 - When a project has no comments on a task, task details clearly show that no discussion has been recorded yet.
 
+## Security Exception & Governance
+
+This feature intentionally uses a predefined-user, no-login workflow as a time-boxed exception to the constitution's Security-First principle. The exception is scoped to the internal first phase only and must not be interpreted as a general authorization model. It is limited to the trusted demo environment described by this specification, and it must be re-reviewed before any production or externally exposed rollout.
+
+- **Trust boundary**: every write endpoint validates the acting user ID against the five predefined identities at the receiving service boundary; no login or external identity provider is used.
+- **Governance**: this exception is a release gate, not a silent policy change. Any future auth or authorization requirement must be introduced as a separate requirement and documented before leaving the internal demo scope.
+- **Operational constraint**: no secrets, credentials, or user-owned data are introduced; all service writes continue to validate input and fail without partial mutation.
+
+## Validation Protocol
+
+Performance and usability thresholds are measured from a clean seeded workspace using a scripted validation harness and stopwatch. The validation run uses five representative users and the canonical project/task/comment flows from the user stories. The feature passes only when at least four of five users complete the board-open, create+assign+move, and comment tasks within the stated time bounds and the task data remains intact after moves.
+
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
