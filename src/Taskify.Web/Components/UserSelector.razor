@@ -38,9 +38,9 @@
             SelectedUserId = null;
             await SessionStorage.DeleteAsync(StorageKey);
         }
-    }
 
     private async Task HandleSelectionChanged(ChangeEventArgs args)
+    {
         Guid? selectedUserId = null;
         if (Guid.TryParse(args.Value?.ToString(), out var parsedUserId))
         {
