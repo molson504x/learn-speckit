@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Taskify.ServiceDefaults;
 using Taskify.Web.Components;
 using Taskify.Web.Services;
@@ -9,6 +10,7 @@ builder.AddServiceDefaults();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddProtectedBrowserStorage();
 builder.Services.AddHttpClient<ProjectsApiClient>(client =>
 {
     client.BaseAddress = new Uri("https+http://projectsapi");

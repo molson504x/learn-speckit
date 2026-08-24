@@ -19,9 +19,9 @@ public static class PredefinedUsers
 
     public static bool IsPredefinedUser(Guid userId) => TryGet(userId, out _);
 
-    public static bool TryGet(Guid userId, out PredefinedUser user)
+    public static bool TryGet(Guid userId, out PredefinedUser? user)
     {
-        user = All.FirstOrDefault(candidate => candidate.Id == userId)!;
+        user = All.FirstOrDefault(candidate => candidate.Id == userId);
         return user is not null;
     }
 }
