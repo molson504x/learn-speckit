@@ -28,11 +28,11 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create solution structure with projects: Taskify.AppHost, Taskify.ServiceDefaults, Taskify.ProjectsApi, Taskify.TasksApi, Taskify.NotificationsApi, Taskify.Web
-- [ ] T002 [P] Add .NET 9 / Aspire 9.x dependencies to all service projects via .csproj
-- [ ] T003 [P] Configure linting and formatting (StyleCop, EditorConfig) in solution root
-- [ ] T004 [P] Create .gitignore and .github/workflows for CI/CD pipeline scaffolding
-- [ ] T005 Create src/ directory structure per project organization (Endpoints/, Models/, Data/, Components/, Pages/, Services/, Hubs/)
+- [x] T001 Create solution structure with projects: Taskify.AppHost, Taskify.ServiceDefaults, Taskify.ProjectsApi, Taskify.TasksApi, Taskify.NotificationsApi, Taskify.Web
+- [x] T002 [P] Add .NET 9 / Aspire 9.x dependencies to all service projects via .csproj
+- [x] T003 [P] Configure linting and formatting (StyleCop, EditorConfig) in solution root
+- [x] T004 [P] Create .gitignore and .github/workflows for CI/CD pipeline scaffolding
+- [x] T005 Create src/ directory structure per project organization (Endpoints/, Models/, Data/, Components/, Pages/, Services/, Hubs/)
 
 ---
 

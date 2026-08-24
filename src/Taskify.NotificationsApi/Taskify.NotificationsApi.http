@@ -1,0 +1,6 @@
+@Taskify.NotificationsApi_HostAddress = http://localhost:5171
+
+GET {{Taskify.NotificationsApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

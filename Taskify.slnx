@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+  <Project Path="src/Taskify.AppHost/Taskify.AppHost.csproj" />
+  <Project Path="src/Taskify.NotificationsApi/Taskify.NotificationsApi.csproj" />
+  <Project Path="src/Taskify.ProjectsApi/Taskify.ProjectsApi.csproj" />
+  <Project Path="src/Taskify.ServiceDefaults/Taskify.ServiceDefaults.csproj" />
+  <Project Path="src/Taskify.TasksApi/Taskify.TasksApi.csproj" />
+  <Project Path="src/Taskify.Web/Taskify.Web.csproj" />
+  </Folder>
+</Solution>
