@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.ServiceDiscovery;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 
@@ -19,9 +20,12 @@ public static class Extensions
         builder.ConfigureOpenTelemetry();
         builder.AddDefaultHealthChecks();
 
+        builder.Services.AddServiceDiscovery();
+
         builder.Services.ConfigureHttpClientDefaults(http =>
         {
             http.AddStandardResilienceHandler();
+            http.AddServiceDiscovery();
         });
 
         return builder;
@@ -32,7 +36,7 @@ public static class Extensions
         endpoints.MapHealthChecks("/health");
         endpoints.MapHealthChecks("/alive", new HealthCheckOptions
         {
-            Predicate = registration => registration.Tags.Contains("live"),
+            Predicate = registration => registration.Tags.Contains(LiveTags[0]),
         });
 
         return endpoints;
