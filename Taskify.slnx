@@ -7,4 +7,10 @@
   <Project Path="src/Taskify.TasksApi/Taskify.TasksApi.csproj" />
   <Project Path="src/Taskify.Web/Taskify.Web.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Taskify.AppHost.Tests/Taskify.AppHost.Tests.csproj" />
+    <Project Path="tests/Taskify.ProjectsApi.Tests/Taskify.ProjectsApi.Tests.csproj" />
+    <Project Path="tests/Taskify.TasksApi.Tests/Taskify.TasksApi.Tests.csproj" />
+    <Project Path="tests/Taskify.Web.Tests/Taskify.Web.Tests.csproj" />
+  </Folder>
 </Solution>

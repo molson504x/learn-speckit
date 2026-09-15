@@ -12,9 +12,12 @@ public static class TasksDbInitializer
         if (dbContext.Database.GetMigrations().Any())
         {
             await dbContext.Database.MigrateAsync(cancellationToken);
-            return;
+        }
+        else
+        {
+            await dbContext.Database.EnsureCreatedAsync(cancellationToken);
         }
 
-        await dbContext.Database.EnsureCreatedAsync(cancellationToken);
+        await TasksSeeder.SeedAsync(dbContext, cancellationToken);
     }
 }
