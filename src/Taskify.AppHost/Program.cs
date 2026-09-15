@@ -17,3 +17,5 @@ builder.AddProject("web", "../Taskify.Web/Taskify.Web.csproj")
     .WithReference(notificationsApi);
 
 builder.Build().Run();
+
+public partial class Program;

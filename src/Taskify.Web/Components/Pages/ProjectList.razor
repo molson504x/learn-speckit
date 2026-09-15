@@ -1,0 +1,69 @@
+@page "/"
+@page "/projects"
+@inject ProjectsApiClient ProjectsApiClient
+
+<PageTitle>Projects</PageTitle>
+
+<section class="project-list-shell">
+    <header class="project-list-header">
+        <div>
+            <h1>Projects</h1>
+            <p class="board-meta">Choose one of the seeded projects to open its board.</p>
+        </div>
+        <div class="project-list-user">
+            <UserSelector @bind-SelectedUserId="selectedUserId" />
+        </div>
+    </header>
+
+    @if (isLoading)
+    {
+        <p>Loading projects...</p>
+    }
+    else if (loadErrorMessage is not null)
+    {
+        <div class="alert alert-danger" role="alert">@loadErrorMessage</div>
+    }
+    else if (projects.Count == 0)
+    {
+        <div class="alert alert-info" role="status">No projects yet. Create your first project to get started.</div>
+    }
+    else
+    {
+        <ul class="project-list">
+            @foreach (var project in projects)
+            {
+                <li class="project-list-item">
+                    <div>
+                        <h2>@project.Name</h2>
+                        <p class="board-meta">Created @project.CreatedAtUtc.ToLocalTime().ToString("g")</p>
+                    </div>
+                    <a class="btn btn-primary" href="/projects/@project.Id">Open board</a>
+                </li>
+            }
+        </ul>
+    }
+</section>
+
+@code {
+    private readonly List<ProjectSummary> projects = [];
+    private Guid? selectedUserId;
+    private bool isLoading = true;
+    private string? loadErrorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            projects.Clear();
+            projects.AddRange(await ProjectsApiClient.GetProjectsAsync(CancellationToken.None));
+        }
+        catch
+        {
+            loadErrorMessage = "Projects could not be loaded.";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

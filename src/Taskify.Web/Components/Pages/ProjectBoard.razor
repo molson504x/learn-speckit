@@ -1,0 +1,15 @@
+@page "/projects/{ProjectId:guid}"
+
+<PageTitle>Project Board</PageTitle>
+
+<section class="board-page">
+    <UserSelector @bind-SelectedUserId="selectedUserId" />
+    <KanbanBoard ProjectId="@ProjectId" ActiveUserId="@selectedUserId" />
+</section>
+
+@code {
+    [Parameter]
+    public Guid ProjectId { get; set; }
+
+    private Guid? selectedUserId;
+}

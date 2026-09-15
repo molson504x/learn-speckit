@@ -23,6 +23,11 @@ builder.Services.AddHttpClient<NotificationsApiClient>(client =>
 {
     client.BaseAddress = new Uri("https+http://notificationsapi");
 });
+builder.Services.AddHttpClient("notifications-board", client =>
+{
+    client.BaseAddress = new Uri("http://notificationsapi");
+});
+builder.Services.AddScoped<DragDropService>();
 
 var app = builder.Build();
 

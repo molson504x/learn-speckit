@@ -1,0 +1,264 @@
+@using System.Text.Json.Serialization
+@using Microsoft.AspNetCore.SignalR.Client
+@using Microsoft.JSInterop
+@using Taskify.ServiceDefaults.Models
+@using Taskify.ServiceDefaults.ReferenceData
+@using Taskify.Web.Services
+@implements IAsyncDisposable
+@inject ProjectsApiClient ProjectsApiClient
+@inject TasksApiClient TasksApiClient
+@inject NotificationsApiClient NotificationsApiClient
+@inject DragDropService DragDropService
+@inject ILogger<KanbanBoard> Logger
+
+@if (isLoading)
+{
+    <p>Loading board...</p>
+}
+else if (loadErrorMessage is not null)
+{
+    <div class="alert alert-danger" role="alert">@loadErrorMessage</div>
+}
+else if (project is not null)
+{
+    <section class="board-shell">
+        <header class="board-header">
+            <div>
+                <h1>@project.Name</h1>
+                <p class="board-meta">Project board with live workflow updates.</p>
+            </div>
+            @if (ActiveUserId is null)
+            {
+                <p class="board-warning" role="status">Select an active user to move tasks.</p>
+            }
+        </header>
+
+        @if (moveErrorMessage is not null)
+        {
+            <div class="alert alert-danger" role="alert">@moveErrorMessage</div>
+        }
+
+        <div class="kanban-board" @ref="boardElement" data-testid="kanban-board">
+            @foreach (var column in columns)
+            {
+                var columnTasks = GetTasksForColumn(column.Value);
+                <section class="kanban-column" data-column="@column.Value" aria-label="@column.Label">
+                    <header class="kanban-column-header">
+                        <h2>@column.Label</h2>
+                        <span class="kanban-count">@columnTasks.Count</span>
+                    </header>
+
+                    <div class="kanban-task-list">
+                        @if (columnTasks.Count == 0)
+                        {
+                            <p class="kanban-empty">No tasks in this column.</p>
+                        }
+                        else
+                        {
+                            @foreach (var task in columnTasks)
+                            {
+                                <article class="task-card" data-task-id="@task.Id" tabindex="0">
+                                    <h3>@task.Title</h3>
+                                    @if (!string.IsNullOrWhiteSpace(task.Description))
+                                    {
+                                        <p>@task.Description</p>
+                                    }
+                                    <div class="task-card-footer">
+                                        <span>@GetAssigneeLabel(task.AssigneeUserId)</span>
+                                        @if (task.Comments.Count > 0)
+                                        {
+                                            <span class="task-card-comments">💬 @task.Comments.Count</span>
+                                        }
+                                    </div>
+                                </article>
+                            }
+                        }
+                    </div>
+                </section>
+            }
+        </div>
+    </section>
+}
+
+@code {
+    private static readonly IReadOnlyList<(string Value, string Label)> columns =
+    [
+        (KanbanColumn.ToDo.ToString(), "To Do"),
+        (KanbanColumn.InProgress.ToString(), "In Progress"),
+        (KanbanColumn.InReview.ToString(), "In Review"),
+        (KanbanColumn.Done.ToString(), "Done"),
+    ];
+
+    private readonly Dictionary<Guid, BoardTask> tasksById = [];
+    private DotNetObjectReference<KanbanBoard>? dotNetReference;
+    private IAsyncDisposable? boardSubscription;
+    private ElementReference boardElement;
+    private Guid subscribedProjectId;
+    private bool isLoading = true;
+    private string? loadErrorMessage;
+    private string? moveErrorMessage;
+    private ProjectSummary? project;
+
+    [Parameter]
+    public Guid ProjectId { get; set; }
+
+    [Parameter]
+    public Guid? ActiveUserId { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadBoardAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            dotNetReference = DotNetObjectReference.Create(this);
+        }
+
+        if (!isLoading && loadErrorMessage is null && dotNetReference is not null)
+        {
+            await DragDropService.InitializeAsync(boardElement, dotNetReference);
+        }
+
+        if (!isLoading && loadErrorMessage is null && subscribedProjectId != ProjectId)
+        {
+            await ReplaceSubscriptionAsync();
+        }
+    }
+
+    [JSInvokable]
+    public async Task HandleDropAsync(string taskId, string targetColumn)
+    {
+        moveErrorMessage = null;
+
+        if (ActiveUserId is null)
+        {
+            moveErrorMessage = "Select an active user to move tasks.";
+            await InvokeAsync(StateHasChanged);
+            return;
+        }
+
+        if (!Guid.TryParse(taskId, out var parsedTaskId))
+        {
+            moveErrorMessage = "Unable to move the selected task.";
+            await InvokeAsync(StateHasChanged);
+            return;
+        }
+
+        var updatedTask = await TasksApiClient.MoveTaskAsync(parsedTaskId, targetColumn, ActiveUserId.Value, CancellationToken.None);
+        if (updatedTask is null)
+        {
+            moveErrorMessage = "The task could not be moved right now.";
+            await InvokeAsync(StateHasChanged);
+            return;
+        }
+
+        tasksById[updatedTask.Id] = updatedTask;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (boardSubscription is not null)
+        {
+            await boardSubscription.DisposeAsync();
+        }
+
+        if (dotNetReference is not null)
+        {
+            dotNetReference.Dispose();
+        }
+
+        await DragDropService.DisposeAsync();
+    }
+
+    private async Task LoadBoardAsync()
+    {
+        if (ProjectId == Guid.Empty)
+        {
+            loadErrorMessage = "A project is required to display a board.";
+            isLoading = false;
+            return;
+        }
+
+        isLoading = true;
+        loadErrorMessage = null;
+        moveErrorMessage = null;
+
+        try
+        {
+            var projectTask = ProjectsApiClient.GetProjectAsync(ProjectId, CancellationToken.None);
+            var tasksTask = TasksApiClient.GetTasksAsync(ProjectId, CancellationToken.None);
+            await Task.WhenAll(projectTask, tasksTask);
+
+            project = await projectTask;
+            if (project is null)
+            {
+                tasksById.Clear();
+                loadErrorMessage = "Project not found.";
+                return;
+            }
+
+            tasksById.Clear();
+            foreach (var task in await tasksTask)
+            {
+                tasksById[task.Id] = task;
+            }
+        }
+        catch (Exception exception)
+        {
+            Logger.LogWarning(exception, "Failed to load board for project {ProjectId}.", ProjectId);
+            loadErrorMessage = "The board could not be loaded.";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task ReplaceSubscriptionAsync()
+    {
+        if (boardSubscription is not null)
+        {
+            await boardSubscription.DisposeAsync();
+        }
+
+        boardSubscription = await NotificationsApiClient.SubscribeToBoardAsync(ProjectId, HandleTaskMovedAsync, CancellationToken.None);
+        subscribedProjectId = ProjectId;
+    }
+
+    private Task HandleTaskMovedAsync(TaskMovedEvent taskMovedEvent)
+    {
+        if (taskMovedEvent.ProjectId != ProjectId)
+        {
+            return Task.CompletedTask;
+        }
+
+        if (tasksById.TryGetValue(taskMovedEvent.TaskId, out var task))
+        {
+            tasksById[task.Id] = task with { Column = taskMovedEvent.ToColumn };
+        }
+
+        return InvokeAsync(StateHasChanged);
+    }
+
+    private IReadOnlyList<BoardTask> GetTasksForColumn(string column)
+        => tasksById.Values
+            .Where(task => string.Equals(task.Column, column, StringComparison.Ordinal))
+            .OrderBy(task => task.CreatedAtUtc)
+            .ToList();
+
+    private static string GetAssigneeLabel(Guid? assigneeUserId)
+    {
+        if (assigneeUserId is null)
+        {
+            return "Unassigned";
+        }
+
+        return PredefinedUsers.TryGet(assigneeUserId.Value, out var user)
+            ? user.Name
+            : "Unknown user";
+    }
+}

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Taskify.NotificationsApi.Data;
+using Taskify.NotificationsApi.Endpoints;
 using Taskify.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +29,10 @@ if (app.Environment.IsDevelopment())
 await NotificationsDbInitializer.InitializeAsync(app.Services);
 
 app.MapGet("/", () => Results.Ok(new { service = "Taskify.NotificationsApi" }));
+app.MapNotificationsEndpoints();
 app.MapHub<Taskify.NotificationsApi.Hubs.BoardHub>("/hubs/board");
 app.MapDefaultEndpoints();
 
 app.Run();
+
+public partial class Program;

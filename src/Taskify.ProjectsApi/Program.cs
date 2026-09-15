@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Taskify.ProjectsApi.Data;
+using Taskify.ProjectsApi.Endpoints;
 using Taskify.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,9 @@ if (app.Environment.IsDevelopment())
 await ProjectsSeeder.InitializeAsync(app.Services);
 
 app.MapGet("/", () => Results.Ok(new { service = "Taskify.ProjectsApi" }));
+app.MapProjectsEndpoints();
 app.MapDefaultEndpoints();
 
 app.Run();
+
+public partial class Program;
