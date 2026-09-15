@@ -385,6 +385,13 @@ Before release, perform:
 
 ## Example Component Layouts
 
+### Sample Seed Data
+
+- Projects: **Q4 Roadmap**, **Bug Triage**, **Research Sprint**
+- Seeded tasks should collectively cover **ToDo**, **InProgress**, **InReview**, and **Done**
+- At least one seeded task should display a comment badge so reviewers can confirm metadata remains intact after a move
+- Task moves should update the current board immediately and appear on other connected clients for the same project without a full-page refresh
+
 ### Kanban Board (Desktop)
 ```
 ┌─────────────────────────────────────────────────────────────┐

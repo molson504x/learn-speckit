@@ -96,47 +96,47 @@
 
 ### Contract Tests for User Story 1 ⚠️
 
-- [ ] T030 [P] [US1] Write failing contract test for `GET /api/projects` in `tests/Taskify.ProjectsApi.Tests/ProjectsApiTests.cs` (verify 3 projects returned with correct shape)
-- [ ] T031 [P] [US1] Write failing contract test for `GET /api/tasks?projectId={id}` in `tests/Taskify.TasksApi.Tests/TasksApiTests.cs` (verify tasks array shape with comments sorted by createdAtUtc)
-- [ ] T032 [P] [US1] Write failing contract test for `PATCH /api/tasks/{id}/column` in `tests/Taskify.TasksApi.Tests/TasksApiTests.cs` (verify task moves to new column, other fields unchanged)
-- [ ] T033 [P] [US1] Write failing integration test for task move propagation via SignalR in `tests/Taskify.AppHost.Tests/BoardRealTimeTests.cs` (verify TaskMoved event broadcasts to all connected clients)
-- [ ] T034 [P] [US1] Write failing bUnit component test for Kanban board rendering in `tests/Taskify.Web.Tests/KanbanBoardTests.cs` (verify 4 columns render, tasks appear in correct columns; include edge case: empty project returns no tasks but all 4 columns still render, no load failure)
-- [ ] T035 [P] [US1] Write failing bUnit component test for task drag-and-drop behavior in `tests/Taskify.Web.Tests/DragDropTests.cs` (verify SortableJS interop calls correct API endpoint)
+- [X] T030 [P] [US1] Write failing contract test for `GET /api/projects` in `tests/Taskify.ProjectsApi.Tests/ProjectsApiTests.cs` (verify 3 projects returned with correct shape)
+- [X] T031 [P] [US1] Write failing contract test for `GET /api/tasks?projectId={id}` in `tests/Taskify.TasksApi.Tests/TasksApiTests.cs` (verify tasks array shape with comments sorted by createdAtUtc)
+- [X] T032 [P] [US1] Write failing contract test for `PATCH /api/tasks/{id}/column` in `tests/Taskify.TasksApi.Tests/TasksApiTests.cs` (verify task moves to new column, other fields unchanged)
+- [X] T033 [P] [US1] Write failing integration test for task move propagation via SignalR in `tests/Taskify.AppHost.Tests/BoardRealTimeTests.cs` (verify TaskMoved event broadcasts to all connected clients)
+- [X] T034 [P] [US1] Write failing bUnit component test for Kanban board rendering in `tests/Taskify.Web.Tests/KanbanBoardTests.cs` (verify 4 columns render, tasks appear in correct columns; include edge case: empty project returns no tasks but all 4 columns still render, no load failure)
+- [X] T035 [P] [US1] Write failing bUnit component test for task drag-and-drop behavior in `tests/Taskify.Web.Tests/DragDropTests.cs` (verify SortableJS interop calls correct API endpoint)
 
 ### Implementation for User Story 1
 
 #### Projects API - Seed Sample Projects
 
-- [ ] T036 Create Projects API seeding to generate exactly 3 sample projects on first run in `src/Taskify.ProjectsApi/Data/ProjectsSeeder.cs` (tasks seeded separately by T040). Sample project names should be distinct and representative (e.g., "Q4 Roadmap", "Bug Triage", "Research Sprint") to aid testing and demos. Reference: see `specs/001-taskify-kanban/design-guide.md` for naming guidance.
-- [ ] T037 [P] [US1] Implement `GET /api/projects` endpoint in `src/Taskify.ProjectsApi/Endpoints/ProjectsEndpoints.cs` (returns array of all projects)
-- [ ] T038 [P] [US1] Implement `GET /api/projects/{id}` endpoint in `src/Taskify.ProjectsApi/Endpoints/ProjectsEndpoints.cs` (returns single project or 404)
+- [X] T036 Create Projects API seeding to generate exactly 3 sample projects on first run in `src/Taskify.ProjectsApi/Data/ProjectsSeeder.cs` (tasks seeded separately by T040). Sample project names should be distinct and representative (e.g., "Q4 Roadmap", "Bug Triage", "Research Sprint") to aid testing and demos. Reference: see `specs/001-taskify-kanban/design-guide.md` for naming guidance.
+- [X] T037 [P] [US1] Implement `GET /api/projects` endpoint in `src/Taskify.ProjectsApi/Endpoints/ProjectsEndpoints.cs` (returns array of all projects)
+- [X] T038 [P] [US1] Implement `GET /api/projects/{id}` endpoint in `src/Taskify.ProjectsApi/Endpoints/ProjectsEndpoints.cs` (returns single project or 404)
 
 #### Tasks API - Retrieve & Move Tasks
 
-- [ ] T039 [P] [US1] Implement `GET /api/tasks?projectId={projectId}` endpoint in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs` (returns all tasks with comments for a project, sorted by column and createdAtUtc)
-- [ ] T040 [US1] Seed Tasks API with sample tasks distributed across 4 columns (ToDo, InProgress, InReview, Done) in `src/Taskify.TasksApi/Data/TasksSeeder.cs` (depends on T036: must reference same projects). Ensure sample data validation: across all 3 projects collectively, at least 1 task in each column and at least 1 task with a comment. See `scripts/usability-test-script.md` for test data requirements.
-- [ ] T041 [US1] Implement task-move validation: verify `PATCH /api/tasks/{id}/column` accepts only valid column values and validates `actingUserId` in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs`
-- [ ] T042 [US1] Implement `PATCH /api/tasks/{id}/column` endpoint to move task and preserve all other fields (title, description, assignee, comments, projectId) in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs`
-- [ ] T043 [US1] Emit TaskMoved event to Notifications API after successful column change in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs` (fire-and-forget; log failures but do not block the response)
+- [X] T039 [P] [US1] Implement `GET /api/tasks?projectId={projectId}` endpoint in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs` (returns all tasks with comments for a project, sorted by column and createdAtUtc)
+- [X] T040 [US1] Seed Tasks API with sample tasks distributed across 4 columns (ToDo, InProgress, InReview, Done) in `src/Taskify.TasksApi/Data/TasksSeeder.cs` (depends on T036: must reference same projects). Ensure sample data validation: across all 3 projects collectively, at least 1 task in each column and at least 1 task with a comment. See `scripts/usability-test-script.md` for test data requirements.
+- [X] T041 [US1] Implement task-move validation: verify `PATCH /api/tasks/{id}/column` accepts only valid column values and validates `actingUserId` in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs`
+- [X] T042 [US1] Implement `PATCH /api/tasks/{id}/column` endpoint to move task and preserve all other fields (title, description, assignee, comments, projectId) in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs`
+- [X] T043 [US1] Emit TaskMoved event to Notifications API after successful column change in `src/Taskify.TasksApi/Endpoints/TasksEndpoints.cs` (fire-and-forget; log failures but do not block the response)
 
 #### Notifications API - Broadcast Board Changes
 
-- [ ] T044 [P] [US1] Implement `POST /api/notifications/events` endpoint to record event and immediately broadcast via SignalR in `src/Taskify.NotificationsApi/Endpoints/NotificationsEndpoints.cs`
-- [ ] T045 [US1] Implement `BoardHub.TaskMoved` SignalR client method to push move events to all connected clients in matching `projectId` group in `src/Taskify.NotificationsApi/Hubs/BoardHub.cs`
-- [ ] T046 [P] [US1] Implement `GET /api/notifications/events?projectId={projectId}` endpoint for late-joining clients in `src/Taskify.NotificationsApi/Endpoints/NotificationsEndpoints.cs`
+- [X] T044 [P] [US1] Implement `POST /api/notifications/events` endpoint to record event and immediately broadcast via SignalR in `src/Taskify.NotificationsApi/Endpoints/NotificationsEndpoints.cs`
+- [X] T045 [US1] Implement `BoardHub.TaskMoved` SignalR client method to push move events to all connected clients in matching `projectId` group in `src/Taskify.NotificationsApi/Hubs/BoardHub.cs`
+- [X] T046 [P] [US1] Implement `GET /api/notifications/events?projectId={projectId}` endpoint for late-joining clients in `src/Taskify.NotificationsApi/Endpoints/NotificationsEndpoints.cs`
 
 #### Frontend - Kanban Board Display & Interaction
 
-- [ ] T047 [US1] Create Kanban board Blazor component in `src/Taskify.Web/Components/KanbanBoard.razor` that renders 4 columns with task cards (depends on T039, T043)
-- [ ] T048 [P] [US1] Implement SortableJS JS interop wrapper in `src/Taskify.Web/Services/DragDropService.cs` and `src/Taskify.Web/wwwroot/js/sortable-interop.js` for column-to-column drag-and-drop
-- [ ] T049 [US1] Integrate SortableJS drop handler to call `PATCH /api/tasks/{id}/column` endpoint in `src/Taskify.Web/Components/KanbanBoard.razor` and emit local optimistic update
-- [ ] T050 [US1] Connect Blazor component to SignalR hub in `src/Taskify.Web/Components/KanbanBoard.razor` to subscribe to TaskMoved and other board events (depends on T044, T045)
-- [ ] T051 [US1] Implement real-time board update in `src/Taskify.Web/Components/KanbanBoard.razor` to reflect incoming SignalR TaskMoved events without full-page reload
-- [ ] T052 [P] [US1] Create Projects List page in `src/Taskify.Web/Pages/ProjectList.razor` (displays all projects, link to open each project's board)
+- [X] T047 [US1] Create Kanban board Blazor component in `src/Taskify.Web/Components/KanbanBoard.razor` that renders 4 columns with task cards (depends on T039, T043)
+- [X] T048 [P] [US1] Implement SortableJS JS interop wrapper in `src/Taskify.Web/Services/DragDropService.cs` and `src/Taskify.Web/wwwroot/js/sortable-interop.js` for column-to-column drag-and-drop
+- [X] T049 [US1] Integrate SortableJS drop handler to call `PATCH /api/tasks/{id}/column` endpoint in `src/Taskify.Web/Components/KanbanBoard.razor` and emit local optimistic update
+- [X] T050 [US1] Connect Blazor component to SignalR hub in `src/Taskify.Web/Components/KanbanBoard.razor` to subscribe to TaskMoved and other board events (depends on T044, T045)
+- [X] T051 [US1] Implement real-time board update in `src/Taskify.Web/Components/KanbanBoard.razor` to reflect incoming SignalR TaskMoved events without full-page reload
+- [X] T052 [P] [US1] Create Projects List page in `src/Taskify.Web/Pages/ProjectList.razor` (displays all projects, link to open each project's board)
 
 ### Integration Checkpoint for User Story 1
 
-- [ ] T053 [US1] Run all User Story 1 contract and integration tests; ensure 100% pass with sample-data seeding in place and update README.md plus specs/001-taskify-kanban/design-guide.md with the board workflow, sample data, and real-time behavior notes
+- [X] T053 [US1] Run all User Story 1 contract and integration tests; ensure 100% pass with sample-data seeding in place and update README.md plus specs/001-taskify-kanban/design-guide.md with the board workflow, sample data, and real-time behavior notes
 
 **At this point, User Story 1 should be fully functional and testable independently:** 
 - A user can see all projects
