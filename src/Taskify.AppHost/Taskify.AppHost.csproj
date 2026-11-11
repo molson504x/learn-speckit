@@ -12,7 +12,7 @@
     <ProjectReference Include="..\Taskify.ProjectsApi\Taskify.ProjectsApi.csproj" />
     <ProjectReference Include="..\Taskify.TasksApi\Taskify.TasksApi.csproj" />
     <ProjectReference Include="..\Taskify.Web\Taskify.Web.csproj" />
-    <PackageReference Include="Aspire.Hosting" Version="9.5.2" />
+    <PackageReference Include="Aspire.Hosting" Version="13.6.5" />
   </ItemGroup>
 
 </Project>
